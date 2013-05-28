@@ -37,9 +37,7 @@ class Group {
 	protected int padding;
 	protected int width, height;
 	
-/* ========================
-	 Group :: Group
-	 ======================== */
+	
 	public Group( String name, PVector coordinates ) {
 		this.name = name.toUpperCase();
 		this.controls = new ArrayList<Control>();
