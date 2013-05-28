@@ -36,19 +36,19 @@ Group group = new Group( "test", groupPosititon );
 Group group2 = new Group( "test", groupPosititon2 );
 ArrayList<Integer> sliderPositions;
 void draw() {
-	colorMode( RGB, 255 );
+  colorMode( RGB, 255 );
 	background( 255 );
 	group.draw();
-   group2.draw();
+  group2.draw();
 }
 
 void setup() {
 	size( width, height );
-   sliderPositions = new ArrayList<Integer>();
-   sliderPositions.add( 100 );
-   // sliderPositions.add( 50 );
-   String[] checks = { "Check 1", "Check 2", "Check 3" };
-   boolean[] checkSelected = { false, true, false };
+  sliderPositions = new ArrayList<Integer>();
+  sliderPositions.add( 100 );
+  // sliderPositions.add( 50 );
+  String[] checks = { "Check 1", "Check 2", "Check 3" };
+  boolean[] checkSelected = { false, true, false };
 	String[] options = { "Option 1", "Option 2", "Option 3", "Option 4", "Option 5" };
 	group.addControl( new CheckBox( 50, 50, 12, checks, true, checkSelected ));
 	group.addControl( new Button( 50, 100, 20, "Button", true ));
