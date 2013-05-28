@@ -30,7 +30,7 @@
 */
 
 class Group {
-	
+
 	protected String name;
 	protected ArrayList<Control> controls;
 	protected PVector coordinates;
