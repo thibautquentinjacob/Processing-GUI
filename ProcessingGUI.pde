@@ -58,21 +58,21 @@ void setup() {
 }
 
 void mouseClicked() {
-	group.mouseClicked();
+  group.mouseClicked();
 }
 
 void mouseMoved() {
-	group.mouseMoved();
+  group.mouseMoved();
 }
 
 void mouseReleased() {
-	group.mouseReleased();
+  group.mouseReleased();
 }
 
 void mousePressed() {
-	group.mousePressed();
+  group.mousePressed();
 }
 
 void mouseDragged() {
-   group.mouseDragged();
+  group.mouseDragged();
 }

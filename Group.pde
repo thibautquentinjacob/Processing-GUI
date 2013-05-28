@@ -18,11 +18,11 @@
 
 /* Description
    ===========
-		Allows to group a set of controls.
+   Allows to group a set of controls.
    
    TODO
    ==============
-	 - Fix group dimension
+   - Fix group dimension
 
    FIXME
    ==============
