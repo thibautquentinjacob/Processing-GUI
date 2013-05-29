@@ -22,6 +22,7 @@
    
    TODO
    ==============
+   - Linear / Radial gradient
 
    FIXME
    ==============
@@ -30,31 +31,32 @@
 
 int width = 800;
 int height = 800;
-PVector groupPosititon = new PVector( 30, 30 );
-PVector groupPosititon2 = new PVector( 200, 30 );
-Group group = new Group( "test", groupPosititon );
-Group group2 = new Group( "test", groupPosititon2 );
+PVector groupPosition = new PVector( 30, 30 );
+Group group = new Group( "test", groupPosition );
 ArrayList<Integer> sliderPositions;
 void draw() {
   colorMode( RGB, 255 );
   background( 255 );
   group.draw();
-  group2.draw();
+  fill( 0 );
+  stroke( 0 );
+  text( mouseX + " x " + mouseY, 10 , 10 );
 }
 
 void setup() {
   size( width, height );
   sliderPositions = new ArrayList<Integer>();
   sliderPositions.add( 100 );
-  // sliderPositions.add( 50 );
-  String[] checks = { "Check 1", "Check 2", "Check 3" };
-  boolean[] checkSelected = { false, true, false };
+  sliderPositions.add( 25 );
+  sliderPositions.add( 50 );
+  String[] checks = { "Check 1", "Check 2", "Check 3", "Check 4" };
+  boolean[] checkSelected = { false, true, false, true };
   String[] options = { "Option 1", "Option 2", "Option 3", "Option 4", "Option 5" };
   group.addControl( new CheckBox( 50, 50, 12, checks, true, checkSelected ));
   group.addControl( new Button( 50, 100, 20, "Button", true ));
   group.addControl( new Label( 50, 150, 20, "Label" ));
-  group2.addControl( new RadioButtons( 50, 190, 12, options, true, 1 ));
-  group2.addControl( new Slider( 50, 300, 100, 1, sliderPositions ));
+  group.addControl( new RadioButtons( 50, 190, 12, options, true, 1 ));
+  group.addControl( new Slider( 50, 300, 0, 500, 1, sliderPositions ));
 }
 
 void mouseClicked() {

@@ -18,7 +18,7 @@
 
 /* Description
    ===========
-   __ Write something here __
+   Color representation class
    
    TODO
    ==============

@@ -22,7 +22,6 @@
    
    TODO
    ==============
-   - Fix group dimension
 
    FIXME
    ==============
@@ -36,15 +35,19 @@ class Group {
 	protected PVector coordinates;
 	protected int padding;
 	protected int width, height;
+	protected boolean disabled;
 	
-	
-	public Group( String name, PVector coordinates ) {
+/* ========================
+	 Group :: Group
+	 ======================== */
+	 public Group( String name, PVector coordinates ) {
 		this.name = name.toUpperCase();
 		this.controls = new ArrayList<Control>();
 		this.coordinates = coordinates;
 		this.padding = 10;
 		this.width = this.padding;
 		this.height = this.padding;
+		this.disabled = false;
 	}
 	
 	public Group( String name, PVector coordinates, ArrayList<Control> controls ) {
@@ -53,6 +56,7 @@ class Group {
 		this.coordinates = coordinates;
 		this.padding = 10;
 		this.getGroupDimensions();
+		this.disabled = false;
 	}
 
 /* ========================
@@ -67,9 +71,24 @@ class Group {
 		// rect( this.coordinates.x, this.coordinates.y + 5, this.width, this.height, 5, 5, 5, 5 );
 		fill( 240, 240, 240 );
 		stroke( 220, 220, 220 );
-		rect( this.coordinates.x, this.coordinates.y + 5, this.width-2, this.height-2, 5, 5, 5, 5 );
+		rect( this.coordinates.x, this.coordinates.y + 5, this.width, this.height, 5, 5, 5, 5 );
 		for	( Control control: this.controls ) {
 			control.draw();
+		}
+		// For debugging purposes
+		// this.drawOverlay();
+	}
+
+/* ========================
+	 Group :: drawOverlay
+
+	 Debug drawing
+	 ======================== */
+	private void drawOverlay() {
+		for	( Control control: this.controls ) {
+			fill( 255, 0, 0, 100 );
+			stroke( 255, 0, 0, 150 );
+			rect( control.getX(), control.getY(), control.getWidth(), control.getHeight());
 		}
 	}
 
@@ -81,13 +100,12 @@ class Group {
 		if ( !this.controls.isEmpty()) {
 			verticalOffset = this.controls.get( this.controls.size() - 1 ).getY() + this.controls.get( this.controls.size() - 1 ).getHeight() + 2 * this.padding;
 		} else {
-			verticalOffset = (int)this.coordinates.y + this.padding;
+			verticalOffset = (int)this.coordinates.y + 3 * this.padding / 2;
 		}
 		control.setX( (int)this.coordinates.x + this.padding );
-		control.setY( verticalOffset + this.padding );
+		control.setY( verticalOffset );
 		this.controls.add( control );
 		this.getGroupDimensions();
-		this.height += verticalOffset;
 	}
 
 /* ========================
@@ -106,15 +124,15 @@ class Group {
 		for ( int i = 0 ; i < this.controls.size() ; i++ ) {
 			int width = this.controls.get( i ).getWidth();
 			int height = this.controls.get( i ).getHeight();
-			println( this.controls.get( i ).getType() + " dimensions are: " + width + " x " + height );
+			// println( this.controls.get( i ).getType() + " dimensions are: " + width + " x " + height );
 			if ( width > maxWidth ) {
 				maxWidth = width;
 			}
-			maxHeight += height;
+			maxHeight += height + 2 * padding;
 		}
 		this.width = maxWidth + 2 * this.padding;
 		this.height = maxHeight;
-		println( "dimensions are: " + this.width + ", " + this.height );
+		// println( "dimensions are: " + this.width + ", " + this.height );
 	}
 
 	public int getWidth() {
@@ -130,6 +148,20 @@ class Group {
 	 ======================== */	
 	public void setpadding( int padding ) {
 		this.padding = padding;
+	}
+
+/* ========================
+	 Group :: enable
+	 ======================== */
+	public void enable() {
+		this.disabled = false;
+	}
+
+/* ========================
+	 Group :: disable
+	 ======================== */
+	public void disable() {
+		this.disabled = false;
 	}
 
 	void mouseClicked() {
