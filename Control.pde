@@ -22,9 +22,9 @@
    
    TODO
    ==============
-	 - Implement disabled state
-	 - Add scale
-	 - Add constructors without coordinates for groups
+     - Implement disabled state
+     - Add scale
+     - Add constructors without coordinates for groups
 
    FIXME
    ==============
@@ -34,69 +34,69 @@
 */
 
 class Control {
-	
-	protected Color fillColor = new Color( 200, 200, 200 );
-	protected Color strokeColor = new Color( 100, 100, 100 );
-	protected int x, y, width, height;
-	protected boolean shadowed;
-	protected boolean hovered;
-	protected boolean disabled;
-	protected int textSize = 11;
-	protected int roundness = 5;
-	protected String type;
-	
-	public void draw() {}
-	
-	public void mouseClicked() {}
-	public void mouseMoved() {}
-	public void mousePressed() {}
-	public void mouseReleased() {}
-	public void mouseDragged() {}
-	
-	public void setColor( Color fillColor, Color strokeColor ) {
-		this.fillColor = fillColor;
-		this.strokeColor = strokeColor;
-	}
+    
+    protected Color fillColor = new Color( 200, 200, 200 );
+    protected Color strokeColor = new Color( 100, 100, 100 );
+    protected int x, y, width, height;
+    protected boolean shadowed;
+    protected boolean hovered;
+    protected boolean disabled;
+    protected int textSize = 11;
+    protected int roundness = 5;
+    protected String type;
+    
+    public void draw() {}
+    
+    public void mouseClicked() {}
+    public void mouseMoved() {}
+    public void mousePressed() {}
+    public void mouseReleased() {}
+    public void mouseDragged() {}
+    
+    public void setColor( Color fillColor, Color strokeColor ) {
+        this.fillColor = fillColor;
+        this.strokeColor = strokeColor;
+    }
 
-	public Color[] getColor() {
-		Color[] colors = { this.fillColor, this.strokeColor };
-		return colors;
-	}
-	
-	public int getX() {
-		return this.x;
-	}
+    public Color[] getColor() {
+        Color[] colors = { this.fillColor, this.strokeColor };
+        return colors;
+    }
+    
+    public int getX() {
+        return this.x;
+    }
 
-	public int getY() {
-		return this.y;
-	}
+    public int getY() {
+        return this.y;
+    }
 
-	public void setX( int x ) {
-		this.x = x;
-	}
-	
-	public void setY( int y ) {
-		this.y = y;
-	}
-	
-	public void setShadowed( boolean shadowed ) {
-		this.shadowed = shadowed;
-	}
-	
-	public void setDisabled( boolean disabled ) {
-		this.disabled = disabled;
-	}
-	
-	public int getWidth() {
-		return this.width;
-	}
-	
-	public int getHeight() {
-		return this.height;
-	}
+    public void setX( int x ) {
+        this.x = x;
+    }
+    
+    public void setY( int y ) {
+        this.y = y;
+    }
+    
+    public void setShadowed( boolean shadowed ) {
+        this.shadowed = shadowed;
+    }
+    
+    public void setDisabled( boolean disabled ) {
+        this.disabled = disabled;
+    }
+    
+    public int getWidth() {
+        return this.width;
+    }
+    
+    public int getHeight() {
+        return this.height;
+    }
 
-	public String getType() {
-		return this.type;
-	}
+    public String getType() {
+        return this.type;
+    }
 
 }

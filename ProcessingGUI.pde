@@ -34,47 +34,62 @@ int height = 800;
 PVector groupPosition = new PVector( 30, 30 );
 Group group = new Group( "test", groupPosition );
 ArrayList<Integer> sliderPositions;
+ArrayList<Integer> sliderPositions2;
+Slider slider;
 void draw() {
-  colorMode( RGB, 255 );
-  background( 255 );
-  group.draw();
-  fill( 0 );
-  stroke( 0 );
-  text( mouseX + " x " + mouseY, 10 , 10 );
+    colorMode( RGB, 255 );
+    background( #25282c );
+      // if ( frameCount % 30 == 0 ) {
+      //   int max = (int)(Math.random() * (200-10)) + 10;
+      //   slider.setMax( max );
+      //   fill( 0 );
+      //   text( "Max " + max, 200, 10 );
+      // }
+    group.draw();
+    fill( 0 );
+    stroke( 0 );
+    text( mouseX + " x " + mouseY, 10 , 10 );
 }
 
 void setup() {
-  size( width, height );
-  sliderPositions = new ArrayList<Integer>();
-  sliderPositions.add( 100 );
-  sliderPositions.add( 25 );
-  sliderPositions.add( 50 );
-  String[] checks = { "Check 1", "Check 2", "Check 3", "Check 4" };
-  boolean[] checkSelected = { false, true, false, true };
-  String[] options = { "Option 1", "Option 2", "Option 3", "Option 4", "Option 5" };
-  group.addControl( new CheckBox( 50, 50, 12, checks, true, checkSelected ));
-  group.addControl( new Button( 50, 100, 20, "Button", true ));
-  group.addControl( new Label( 50, 150, 20, "Label" ));
-  group.addControl( new RadioButtons( 50, 190, 12, options, true, 1 ));
-  group.addControl( new Slider( 50, 300, 0, 500, 1, sliderPositions ));
+    size( width, height );
+    sliderPositions = new ArrayList<Integer>();
+    sliderPositions.add( 100 );
+    sliderPositions.add( 25 );
+    sliderPositions.add( 50 );
+    sliderPositions2 = new ArrayList<Integer>();
+    sliderPositions2.add( 70 );
+    sliderPositions2.add( 25 );
+    sliderPositions2.add( 50 );
+    String[] checks = { "Check 1", "Check 2", "Check 3", "Check 4" };
+    boolean[] checkSelected = { false, true, false, true };
+    String[] options = { "Option 1", "Option 2", "Option 3", "Option 4", "Option 5" };
+    group.addControl( new CheckBox( 50, 50, 12, checks, true, checkSelected ));
+    group.addControl( new Button( 50, 100, 20, "Button", true ));
+    group.addControl( new Label( 50, 150, 20, "Label" ));
+    group.addControl( new RadioButtons( 50, 190, 12, options, true, 1 ));
+    group.addControl( new Slider( 50, 300, 0, 500, 400, sliderPositions ));
+    slider = new Slider( 450, 300, 0, 500, 300, sliderPositions2 );
+    group.addControl( slider );
 }
 
 void mouseClicked() {
-  group.mouseClicked();
+    group.mouseClicked();
 }
 
 void mouseMoved() {
-  group.mouseMoved();
+    group.mouseMoved();
 }
 
 void mouseReleased() {
-  group.mouseReleased();
+    group.mouseReleased();
 }
 
 void mousePressed() {
-  group.mousePressed();
+    group.mousePressed();
 }
 
 void mouseDragged() {
-  group.mouseDragged();
+    group.mouseDragged();
+    slider.mouseDragged();
 }

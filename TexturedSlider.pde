@@ -29,30 +29,30 @@
 */
 
 class TexturedSlider extends Slider {
-	
-	public TexturedSlider( int x, int y, int min, int max ) {
-		super( x, y, min, max );
-	}
+    
+    public TexturedSlider( int x, int y, int min, int max, int size ) {
+        super( x, y, min, max, size );
+    }
 
-	public TexturedSlider( int x, int y, int min, int max, int resolution, ArrayList<Integer> dragPositions ) {
-		super( x, y, min, max, resolution, dragPositions );
-	}
+    public TexturedSlider( int x, int y, int min, int max, int size, ArrayList<Integer> dragPositions ) {
+        super( x, y, min, max, size, dragPositions );
+    }
 
-	@Override
-	public void draw() {
-		colorMode( RGB, 255 );
-		int[] strokeColorChannels = { this.strokeColor.getRed(), this.strokeColor.getGreen(), this.strokeColor.getBlue() };
-		int[] fillColorChannels = { this.fillColor.getRed(), this.fillColor.getGreen(), this.fillColor.getBlue() };
-		fill( 100, 100, 100 );
-		stroke( 0, 0, 0 );
-		rect( this.x, this.y + this.height + 2, this.width, this.height, this.roundness, this.roundness, this.roundness, this.roundness );
-		for ( int position : this.dragPositions ) {
-			stroke( strokeColorChannels[0], strokeColorChannels[1], strokeColorChannels[2] );
-			fill( fillColorChannels[0], fillColorChannels[1], fillColorChannels[2] );
-			ellipse( this.x + position * width / range , this.y + this.height * 3 / 2 + 2, this.height * 3 + 2 , this.height * 3 + 2 );
-			fill( 100, 100, 100 );
-			ellipse( this.x + position * width / range, this.y + this.height * 3 / 2 + 2, this.height, this.height );
-		}
-	}
+    @Override
+    public void draw() {
+        colorMode( RGB, 255 );
+        int[] strokeColorChannels = { this.strokeColor.getRed(), this.strokeColor.getGreen(), this.strokeColor.getBlue() };
+        int[] fillColorChannels = { this.fillColor.getRed(), this.fillColor.getGreen(), this.fillColor.getBlue() };
+        fill( 100, 100, 100 );
+        stroke( 0, 0, 0 );
+        rect( this.x, this.y + this.height + 2, this.width, this.height, this.roundness, this.roundness, this.roundness, this.roundness );
+        for ( int position : this.dragPositions ) {
+            stroke( strokeColorChannels[0], strokeColorChannels[1], strokeColorChannels[2] );
+            fill( fillColorChannels[0], fillColorChannels[1], fillColorChannels[2] );
+            ellipse( this.x + position * width / range , this.y + this.height * 3 / 2 + 2, this.height * 3 + 2 , this.height * 3 + 2 );
+            fill( 100, 100, 100 );
+            ellipse( this.x + position * width / range, this.y + this.height * 3 / 2 + 2, this.height, this.height );
+        }
+    }
 
 }

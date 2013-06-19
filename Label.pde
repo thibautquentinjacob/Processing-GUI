@@ -30,29 +30,29 @@
 
 class Label extends Control {
 
-	private String text;
+    private String text;
 
-	public Label( int x, int y, int height, String text ) {
-		this.x = x;
-		this.y = y;
-		this.width = int( textWidth( text )) + 10;
-		this.height = height;
-		this.text = text;
-		this.disabled = false;
-		this.type = "Label";
-	}
+    public Label( int x, int y, int height, String text ) {
+        this.x = x;
+        this.y = y;
+        this.width = int( textWidth( text )) + 10;
+        this.height = height;
+        this.text = text;
+        this.disabled = false;
+        this.type = "Label";
+    }
 
-	@Override
-	public void draw() {
-		colorMode( RGB, 255 );
-		fill( 0, 0, 0 );
-		textSize( this.textSize );
-		text( this.text, this.x, this.y + height / 2 + 5 );
-	}
+    @Override
+    public void draw() {
+        colorMode( RGB, 255 );
+        fill( 0, 0, 0 );
+        textSize( this.textSize );
+        text( this.text, this.x, this.y + height / 2 + 5 );
+    }
 
-	public void setText( String text ) {
-		this.text = text;
-		this.width = int( textWidth( text )) + 10;
-	}
+    public void setText( String text ) {
+        this.text = text;
+        this.width = int( textWidth( text )) + 10;
+    }
 
 }

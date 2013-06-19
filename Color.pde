@@ -29,73 +29,73 @@
 */
 
 class Color {
-	
-	int red, blue, green, alpha;
-	
+    
+    int red, blue, green, alpha;
+    
 /* ========================
-	 Color :: Color
-	 ======================== */
-	public Color( int red, int blue, int green ) {
-		this.red = red;
-		this.green = green;
-		this.blue = blue;
-		this.alpha = 255;
-	}
-	
-	public Color( int red, int blue, int green, int alpha ) {
-		this.red = red;
-		this.green = green;
-		this.blue = blue;
-		this.alpha = alpha;
-	}
-	
-	public Color( int mono ) {
-		this.red = mono;
-		this.green = mono;
-		this.blue = mono;
-		this.alpha = mono;
-	}
-	
-	public Color( int mono, int alpha ) {
-		this.red = mono;
-		this.green = mono;
-		this.blue = mono;
-		this.alpha = alpha;
-	}
-	
-	public Color() {
-		this.red = 100;
-		this.green = 100;
-		this.blue = 100;
-		this.alpha = 255;
-	}
-	
+     Color :: Color
+     ======================== */
+    public Color( int red, int blue, int green ) {
+        this.red = red;
+        this.green = green;
+        this.blue = blue;
+        this.alpha = 255;
+    }
+    
+    public Color( int red, int blue, int green, int alpha ) {
+        this.red = red;
+        this.green = green;
+        this.blue = blue;
+        this.alpha = alpha;
+    }
+    
+    public Color( int mono ) {
+        this.red = mono;
+        this.green = mono;
+        this.blue = mono;
+        this.alpha = mono;
+    }
+    
+    public Color( int mono, int alpha ) {
+        this.red = mono;
+        this.green = mono;
+        this.blue = mono;
+        this.alpha = alpha;
+    }
+    
+    public Color() {
+        this.red = 100;
+        this.green = 100;
+        this.blue = 100;
+        this.alpha = 255;
+    }
+    
 /* ========================
-	 Color :: getRed
-	 ======================== */
-	public int getRed() {
-		return this.red;
-	}
+     Color :: getRed
+     ======================== */
+    public int getRed() {
+        return this.red;
+    }
 
 /* ========================
-	 Color :: getGreen
-	 ======================== */
-	public int getGreen() {
-		return this.green;
-	}
-	
+     Color :: getGreen
+     ======================== */
+    public int getGreen() {
+        return this.green;
+    }
+    
 /* ========================
-	 Color :: getBlue
-	 ======================== */
-	public int getBlue() {
-		return this.blue;
-	}
-	
+     Color :: getBlue
+     ======================== */
+    public int getBlue() {
+        return this.blue;
+    }
+    
 /* ========================
-	 Color :: getAlpha
-	 ======================== */
-	public int getAlpha() {
-		return this.alpha;
-	}
-	
+     Color :: getAlpha
+     ======================== */
+    public int getAlpha() {
+        return this.alpha;
+    }
+    
 }
