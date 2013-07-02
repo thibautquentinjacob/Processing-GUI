@@ -37,9 +37,11 @@ class Group {
     protected int width, height;
     protected boolean disabled;
     
-/* ========================
+    /* 
+    ========================
      Group :: Group
-     ======================== */
+    ======================== 
+    */
      public Group( String name, PVector coordinates ) {
         this.name = name.toUpperCase();
         this.controls = new ArrayList<Control>();
@@ -59,9 +61,11 @@ class Group {
         this.disabled = false;
     }
 
-/* ========================
+    /* 
+    ========================
      Group :: draw
-     ======================== */
+    ======================== 
+    */
     public void draw() {
         fill( 100, 100, 100 );
         // stroke( 220, 220, 220 );
@@ -79,45 +83,54 @@ class Group {
         // this.drawOverlay();
     }
 
-/* ========================
+    /* 
+    ========================
      Group :: drawOverlay
 
      Debug drawing
-     ======================== */
+    ======================== 
+    */
     private void drawOverlay() {
         for ( Control control: this.controls ) {
             fill( 255, 0, 0, 100 );
             stroke( 255, 0, 0, 150 );
-            rect( control.getX(), control.getY(), control.getWidth(), control.getHeight());
+            PVector coordinates = control.getCoordinates();
+            rect( coordinates.x, coordinates.y, control.getWidth(), control.getHeight());
         }
     }
 
-/* ========================
+    /* 
+    ========================
      Group :: addControl
-     ======================== */
+    ======================== 
+    */
     public void addControl( Control control ) {
-        int verticalOffset = 0;
+        float verticalOffset = 0;
         if ( !this.controls.isEmpty()) {
-            verticalOffset = this.controls.get( this.controls.size() - 1 ).getY() + this.controls.get( this.controls.size() - 1 ).getHeight() + 2 * this.padding;
+            verticalOffset = this.controls.get( this.controls.size() - 1 ).getCoordinates().y + 
+                             this.controls.get( this.controls.size() - 1 ).getHeight() + 2 * this.padding;
         } else {
             verticalOffset = (int)this.coordinates.y + 3 * this.padding / 2;
         }
-        control.setX( (int)this.coordinates.x + this.padding );
-        control.setY( verticalOffset );
+        control.setCoordinates( new PVector( (int)this.coordinates.x + this.padding, verticalOffset ));
         this.controls.add( control );
         this.getGroupDimensions();
     }
 
-/* ========================
+    /* 
+    ========================
      Group :: getControls
-     ======================== */
+    ======================== 
+    */
     public ArrayList<Control> getControls() {
         return this.controls;
     }
 
-/* ========================
+    /* 
+    ========================
      Group :: getGroupDimensions
-     ======================== */
+    ======================== 
+    */
     private void getGroupDimensions() {
         int maxWidth = Integer.MIN_VALUE;
         int maxHeight = 0;
@@ -143,23 +156,29 @@ class Group {
         return this.height;
     }
 
-/* ========================
+    /* 
+    ========================
      Group :: setpadding
-     ======================== */    
+    ======================== 
+    */    
     public void setpadding( int padding ) {
         this.padding = padding;
     }
 
-/* ========================
+    /* 
+    ========================
      Group :: enable
-     ======================== */
+    ======================== 
+    */
     public void enable() {
         this.disabled = false;
     }
 
-/* ========================
+    /* 
+    ========================
      Group :: disable
-     ======================== */
+    ======================== 
+    */
     public void disable() {
         this.disabled = false;
     }

@@ -18,7 +18,7 @@
 
 /* Description
    ===========
-   Label GUI element class
+   Allows GUI elements to call functions
    
    TODO
    ==============
@@ -28,32 +28,25 @@
 
 */
 
-class Label extends Control {
+import java.util.concurrent.*;
 
-    private String text;
+class Action implements Callable<Integer> {
 
-    public Label( PVector coordinates, int height, String text ) {
-        this.coordinates = coordinates;
-        this.width = int( textWidth( text )) + 10;
-        this.height = height;
-        this.text = text;
-        this.disabled = false;
-        this.type = "Label";
+    String name;
+    Callable command;
+
+    public Action( String name, Callable<Integer> command ) {
+        this.name = name;
+        this.command = command;
     }
 
-    @Override
-    public void draw() {
-        if ( !this.hidden ) {
-            colorMode( RGB, 255 );
-            fill( 0, 0, 0 );
-            textSize( this.textSize );
-            text( this.text, this.coordinates.x, this.coordinates.y + height / 2 + 5 );
+    public Integer call() {
+        try {
+            this.command.call();
+        } catch ( Exception e ) {
+            println( e.toString() );
         }
-    }
-
-    public void setText( String text ) {
-        this.text = text;
-        this.width = int( textWidth( text )) + 10;
+        return 1;
     }
 
 }

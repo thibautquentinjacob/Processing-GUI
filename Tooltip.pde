@@ -18,7 +18,6 @@
 
 /* Description
    ===========
-   Label GUI element class
    
    TODO
    ==============
@@ -28,32 +27,33 @@
 
 */
 
-class Label extends Control {
+class Tooltip {
 
-    private String text;
+    protected String text;
+    protected PVector coordinates;
+    protected int width, height;
+    protected int roundness = 5;
 
-    public Label( PVector coordinates, int height, String text ) {
+    public Tooltip( PVector coordinates, String text ) {
         this.coordinates = coordinates;
-        this.width = int( textWidth( text )) + 10;
-        this.height = height;
+        this.width = int( textWidth( text )) + 24;
+        this.height = 24;
         this.text = text;
-        this.disabled = false;
-        this.type = "Label";
     }
 
-    @Override
     public void draw() {
-        if ( !this.hidden ) {
-            colorMode( RGB, 255 );
-            fill( 0, 0, 0 );
-            textSize( this.textSize );
-            text( this.text, this.coordinates.x, this.coordinates.y + height / 2 + 5 );
-        }
+        colorMode( RGB, 255 );
+        fill( 255, 255, 255 );
+        stroke( 100, 100, 100 );
+        rect( this.coordinates.x, this.coordinates.y, this.width, this.height, 
+              this.roundness, this.roundness, this.roundness, this.roundness );
+        fill( 100, 100, 100 );
+        text( this.text, this.coordinates.x + 10, this.coordinates.y + height / 2 + 5 );
     }
 
-    public void setText( String text ) {
+    public void setInputText( String text ) {
         this.text = text;
-        this.width = int( textWidth( text )) + 10;
+        this.height = ( int( textWidth( this.text )) + 10 ) / this.width * 24;
     }
 
 }

@@ -22,7 +22,6 @@
    
    TODO
    ==============
-   - Linear / Radial gradient
 
    FIXME
    ==============
@@ -31,65 +30,109 @@
 
 int width = 800;
 int height = 800;
-PVector groupPosition = new PVector( 30, 30 );
-Group group = new Group( "test", groupPosition );
-ArrayList<Integer> sliderPositions;
-ArrayList<Integer> sliderPositions2;
-Slider slider;
+Frame newFrame;
+ArrayList<Integer> times = new ArrayList<Integer>();
+int timeTotal = 0;
+
+TexturedDialog alert;
+
 void draw() {
+    int timeStart = millis();
     colorMode( RGB, 255 );
-    background( #25282c );
-      // if ( frameCount % 30 == 0 ) {
-      //   int max = (int)(Math.random() * (200-10)) + 10;
-      //   slider.setMax( max );
-      //   fill( 0 );
-      //   text( "Max " + max, 200, 10 );
-      // }
-    group.draw();
+    background( 229, 229, 229 );
     fill( 0 );
     stroke( 0 );
     text( mouseX + " x " + mouseY, 10 , 10 );
+    newFrame.draw();
+    int timeEnd = millis();
+    // println( "Complete drawing: " + ( timeEnd - timeStart ));
+    timeTotal += timeEnd - timeStart;
+    // times.add( timeEnd - timeStart );
+//     for ( int time : times ) {
+//         timeTotal += time;
+//     }
+    println( "Average Drawing time by frame: " + timeTotal / frameCount + " last was: " + ( timeEnd - timeStart ));
 }
 
 void setup() {
     size( width, height );
-    sliderPositions = new ArrayList<Integer>();
-    sliderPositions.add( 100 );
-    sliderPositions.add( 25 );
-    sliderPositions.add( 50 );
-    sliderPositions2 = new ArrayList<Integer>();
-    sliderPositions2.add( 70 );
-    sliderPositions2.add( 25 );
-    sliderPositions2.add( 50 );
+    smooth();
+    frameRate( 30 );
+    //background( 255 );
+    // textFont( createFont( "Helvetica medium", 10, true ));
+    PFont neueBold11 = loadFont("HelveticaNeue-Bold-11.vlw");
+    textFont( neueBold11, 11 );
+
+    newFrame = new Frame( width, height );
+    
+    // Controls
     String[] checks = { "Check 1", "Check 2", "Check 3", "Check 4" };
     boolean[] checkSelected = { false, true, false, true };
     String[] options = { "Option 1", "Option 2", "Option 3", "Option 4", "Option 5" };
-    group.addControl( new CheckBox( 50, 50, 12, checks, true, checkSelected ));
-    group.addControl( new Button( 50, 100, 20, "Button", true ));
-    group.addControl( new Label( 50, 150, 20, "Label" ));
-    group.addControl( new RadioButtons( 50, 190, 12, options, true, 1 ));
-    group.addControl( new Slider( 50, 300, 0, 500, 400, sliderPositions ));
-    slider = new Slider( 450, 300, 0, 500, 300, sliderPositions2 );
-    group.addControl( slider );
+    TexturedButton but = new TexturedButton( new PVector( 50, 150 ), 24, "Switch test ON", "Switch it on", true );
+    TexturedButton but2 = new TexturedButton( new PVector( 50, 190 ), 24, "Quit", "Quit the program", true );
+    TexturedCheckBox cb = new TexturedCheckBox( new PVector( 50, 50 ), 11, checks, true, checkSelected );
+    TexturedTextField tf = new TexturedTextField( new PVector( 50, 230 ), 100, "sample text" );
+    TexturedRadioButton rb = new TexturedRadioButton( new PVector( 50, 300 ), 11, options );
+    TexturedSlider ts = new TexturedSlider( new PVector( 50, 400 ), 0, 100, 100 );
+
+    // Actions
+    Action addTestButton = new Action( "AddTestButton", new Callable<Integer>() {
+        public Integer call() {
+            alert.toggle();
+            return 1;
+        }
+    });
+
+    Action quit = new Action( "quit", new Callable<Integer>() {
+        public Integer call() {
+            exit();
+            return 1;
+        }
+    });
+
+    // Action Bindings
+    but.setAction( "mouseClicked", addTestButton );
+    but2.setAction( "mouseClicked", quit );
+
+    ArrayList<Control> dialogControls = new ArrayList<Control>();
+    String[] optionsDialog = { "Badly Annoyed", "Annoyed", "Normal", "Cheerful" };
+    dialogControls.add( new Label( new PVector( 150 + 15, 50 + 50 ), 30, "Describe how you feel. Pick an option below." ));
+    dialogControls.add( new TexturedRadioButton( new PVector( 150 + 15, 50 + 90 ), 11, optionsDialog ));
+    alert = new TexturedDialog( new PVector( 150, 50 ), 400, 200, "Alert!", dialogControls, 8 );
+
+    // Add controls to frame
+    newFrame.addControl( tf );
+    newFrame.addControl( cb );
+    newFrame.addControl( but );
+    newFrame.addControl( but2 );
+    newFrame.addControl( rb );
+    newFrame.addControl( ts );
+
+    // Add dialog to frame
+    newFrame.addDialog( alert );
 }
 
 void mouseClicked() {
-    group.mouseClicked();
+    newFrame.mouseClicked();
 }
 
 void mouseMoved() {
-    group.mouseMoved();
+    newFrame.mouseMoved();
 }
 
 void mouseReleased() {
-    group.mouseReleased();
+    newFrame.mouseReleased();
 }
 
 void mousePressed() {
-    group.mousePressed();
+    newFrame.mousePressed();
 }
 
 void mouseDragged() {
-    group.mouseDragged();
-    slider.mouseDragged();
+    newFrame.mouseDragged();
+}
+
+void keyPressed() {
+    newFrame.keyPressed();
 }

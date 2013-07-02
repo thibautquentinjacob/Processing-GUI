@@ -18,7 +18,6 @@
 
 /* Description
    ===========
-   Label GUI element class
    
    TODO
    ==============
@@ -28,32 +27,32 @@
 
 */
 
-class Label extends Control {
-
-    private String text;
-
-    public Label( PVector coordinates, int height, String text ) {
-        this.coordinates = coordinates;
-        this.width = int( textWidth( text )) + 10;
-        this.height = height;
-        this.text = text;
-        this.disabled = false;
-        this.type = "Label";
+class TexturedGroup extends Group {
+    
+    public TexturedGroup( String name, PVector coordinates ) {
+        super( name, coordinates );
+    }
+    
+    public TexturedGroup( String name, PVector coordinates, ArrayList<Control> controls ) {
+        super( name, coordinates, controls );
     }
 
     @Override
     public void draw() {
-        if ( !this.hidden ) {
-            colorMode( RGB, 255 );
-            fill( 0, 0, 0 );
-            textSize( this.textSize );
-            text( this.text, this.coordinates.x, this.coordinates.y + height / 2 + 5 );
+        fill( #474747 );
+        // stroke( 220, 220, 220 );
+        text( this.name, this.coordinates.x, this.coordinates.y );
+        // fill( 150, 150, 150 );
+        // noStroke();
+        // rect( this.coordinates.x, this.coordinates.y + 5, this.width, this.height, 5, 5, 5, 5 );
+        fill( 255, 255, 255, 110 );
+        stroke( 0, 0, 0, 50 );
+        rect( this.coordinates.x, this.coordinates.y + 5, this.width, this.height, 5, 5, 5, 5 );
+        for ( Control control: this.controls ) {
+            control.draw();
         }
-    }
-
-    public void setText( String text ) {
-        this.text = text;
-        this.width = int( textWidth( text )) + 10;
+        // For debugging purposes
+        // this.drawOverlay();
     }
 
 }

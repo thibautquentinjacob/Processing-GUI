@@ -32,9 +32,11 @@ class Color {
     
     int red, blue, green, alpha;
     
-/* ========================
+    /* 
+    ========================
      Color :: Color
-     ======================== */
+    ======================== 
+    */
     public Color( int red, int blue, int green ) {
         this.red = red;
         this.green = green;
@@ -70,30 +72,38 @@ class Color {
         this.alpha = 255;
     }
     
-/* ========================
+    /* 
+    ========================
      Color :: getRed
-     ======================== */
+    ======================== 
+    */
     public int getRed() {
         return this.red;
     }
 
-/* ========================
+    /* 
+    ========================
      Color :: getGreen
-     ======================== */
+    ======================== 
+    */
     public int getGreen() {
         return this.green;
     }
     
-/* ========================
+    /* 
+    ========================
      Color :: getBlue
-     ======================== */
+    ======================== 
+    */
     public int getBlue() {
         return this.blue;
     }
-    
-/* ========================
+  
+    /* 
+    ========================
      Color :: getAlpha
-     ======================== */
+    ======================== 
+    */
     public int getAlpha() {
         return this.alpha;
     }
