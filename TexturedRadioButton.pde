@@ -14,19 +14,19 @@
    Boston, MA  02110-1301, USA.
    
    ---
-   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr> */
+   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr>
 
-/* Description
-   ===========
-   Radio buttons GUI element class
-   
-   TODO
-   ==============
-
-   FIXME
-   ==============
-
-*/
+┌───────────────────────────────────────────────────────────────┐
+│░░░░░░░░░░ Description ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│
+├───────────────────────────────────────────────────────────────┤
+│ Textured Radio button GUI element class representation        │
+│   ...                                                         │
+├─────────────────────────────────────────────────────────────╤─┤
+│ TODO                                                        │░│
+│ ..                                                          │░│
+│ FIXME                                                       │░│
+│ ...                                                         │░│
+└─────────────────────────────────────────────────────────────┴─┘ */
 
 class TexturedRadioButton extends RadioButton {
 
@@ -34,6 +34,10 @@ class TexturedRadioButton extends RadioButton {
     protected color from;
     protected color to;
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ TexturedRadioButton  ░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public TexturedRadioButton( PVector coordinates, int size, String[] texts ) {
         super( coordinates, size, texts );
         this.from = color( 112, 112, 112 );
@@ -52,6 +56,10 @@ class TexturedRadioButton extends RadioButton {
         this.checkRadius = 0;
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ TexturedRadioButton :: draw  ░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     @Override
     public void draw() {
         if ( !this.hidden ) {

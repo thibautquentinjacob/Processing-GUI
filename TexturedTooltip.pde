@@ -14,18 +14,19 @@
    Boston, MA  02110-1301, USA.
    
    ---
-   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr> */
+   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr>
 
-/* Description
-   ===========
-   
-   TODO
-   ==============
-
-   FIXME
-   ==============
-
-*/
+┌───────────────────────────────────────────────────────────────┐
+│░░░░░░░░░░ Description ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│
+├───────────────────────────────────────────────────────────────┤
+│ Textured Tooltip class representation                         │
+│   ...                                                         │
+├─────────────────────────────────────────────────────────────╤─┤
+│ TODO                                                        │░│
+│ ..                                                          │░│
+│ FIXME                                                       │░│
+│ ...                                                         │░│
+└─────────────────────────────────────────────────────────────┴─┘ */
 
 class TexturedTooltip extends Tooltip {
 
@@ -34,12 +35,20 @@ class TexturedTooltip extends Tooltip {
     protected VerticalGradient vg;
     protected Shadow shadow;
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ TexturedTooltip  ░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public TexturedTooltip( PVector coordinates, String text ) {
         super( coordinates, text );
         this.vg = new VerticalGradient( from, to, this.height, this.width, this.coordinates, this.roundness );
         this.shadow = new Shadow( color( 0, 0, 0, 100 ), this.coordinates, this.width, this.height, 2, this.roundness );
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ TexturedTooltip :: draw  ░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public void draw() {
         colorMode( RGB, 255 );
         // Shadow shadow = new Shadow( color( 0, 0, 0, 100 ), new PVector( this.x, this.y), this.width, this.height, 2, this.roundness );
@@ -59,7 +68,11 @@ class TexturedTooltip extends Tooltip {
         fill( 255, 255, 255 );
         text( this.text, this.coordinates.x + 10, this.coordinates.y + height / 2 + 5 );
     }
-
+    
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ TexturedTooltip :: setInputText  ░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public void setInputText( String text ) {
         this.text = text;
         this.height = ( int( textWidth( this.text )) + 10 ) / this.width * 24;

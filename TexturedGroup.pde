@@ -14,21 +14,26 @@
    Boston, MA  02110-1301, USA.
    
    ---
-   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr> */
+   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr>
 
-/* Description
-   ===========
-   
-   TODO
-   ==============
-
-   FIXME
-   ==============
-
-*/
+┌───────────────────────────────────────────────────────────────┐
+│░░░░░░░░░░ Description ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│
+├───────────────────────────────────────────────────────────────┤
+│ Textured Group class representation                           │
+│   ...                                                         │
+├─────────────────────────────────────────────────────────────╤─┤
+│ TODO                                                        │░│
+│ ..                                                          │░│
+│ FIXME                                                       │░│
+│ ...                                                         │░│
+└─────────────────────────────────────────────────────────────┴─┘ */
 
 class TexturedGroup extends Group {
     
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ TexturedGroup  ░░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public TexturedGroup( String name, PVector coordinates ) {
         super( name, coordinates );
     }
@@ -37,6 +42,10 @@ class TexturedGroup extends Group {
         super( name, coordinates, controls );
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ TexturedGroup :: draw  ░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     @Override
     public void draw() {
         fill( #474747 );

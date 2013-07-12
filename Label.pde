@@ -14,24 +14,28 @@
    Boston, MA  02110-1301, USA.
    
    ---
-   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr> */
+   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr>
 
-/* Description
-   ===========
-   Label GUI element class
-   
-   TODO
-   ==============
-
-   FIXME
-   ==============
-
-*/
+┌───────────────────────────────────────────────────────────────┐
+│░░░░░░░░░░ Description ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│
+├───────────────────────────────────────────────────────────────┤
+│ Label GUI element class representation                        │
+│   ...                                                         │
+├─────────────────────────────────────────────────────────────╤─┤
+│ TODO                                                        │░│
+│ ..                                                          │░│
+│ FIXME                                                       │░│
+│ ...                                                         │░│
+└─────────────────────────────────────────────────────────────┴─┘ */
 
 class Label extends Control {
 
     private String text;
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Label  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public Label( PVector coordinates, int height, String text ) {
         this.coordinates = coordinates;
         this.width = int( textWidth( text )) + 10;
@@ -41,6 +45,10 @@ class Label extends Control {
         this.type = "Label";
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Label :: draw  ░░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     @Override
     public void draw() {
         if ( !this.hidden ) {
@@ -51,6 +59,10 @@ class Label extends Control {
         }
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Label :: setText  ░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public void setText( String text ) {
         this.text = text;
         this.width = int( textWidth( text )) + 10;

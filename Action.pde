@@ -14,32 +14,41 @@
    Boston, MA  02110-1301, USA.
    
    ---
-   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr> */
+   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr>
 
-/* Description
-   ===========
-   Allows GUI elements to call functions
-   
-   TODO
-   ==============
-
-   FIXME
-   ==============
-
-*/
+┌───────────────────────────────────────────────────────────────┐
+│░░░░░░░░░░ Description ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│
+├───────────────────────────────────────────────────────────────┤
+│ Action class representation                                   │
+│   Allows to represent an action by passing a callback function│
+│   and a name.                                                 │
+├─────────────────────────────────────────────────────────────╤─┤
+│ TODO                                                        │░│
+│ ..                                                          │░│
+│ FIXME                                                       │░│
+│ ...                                                         │░│
+└─────────────────────────────────────────────────────────────┴─┘ */
 
 import java.util.concurrent.*;
 
 class Action implements Callable<Integer> {
 
-    String name;
-    Callable command;
+    private String name;
+    private Callable command;
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Action  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public Action( String name, Callable<Integer> command ) {
         this.name = name;
         this.command = command;
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Action :: call  ░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public Integer call() {
         try {
             this.command.call();

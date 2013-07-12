@@ -14,19 +14,19 @@
    Boston, MA  02110-1301, USA.
    
    ---
-   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr> */
+   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr>
 
-/* Description
-   ===========
-   Button GUI element class
-   
-   TODO
-   ==============
-
-   FIXME
-   ==============
-
-*/
+┌───────────────────────────────────────────────────────────────┐
+│░░░░░░░░░░ Description ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│
+├───────────────────────────────────────────────────────────────┤
+│ Textured button GUI element class representation              │
+│   ...                                                         │
+├─────────────────────────────────────────────────────────────╤─┤
+│ TODO                                                        │░│
+│ ..                                                          │░│
+│ FIXME                                                       │░│
+│ ...                                                         │░│
+└─────────────────────────────────────────────────────────────┴─┘ */
 
 class TexturedButton extends Button {
    
@@ -38,32 +38,52 @@ class TexturedButton extends Button {
     protected color toPressed = color( 243, 243, 243 );
 	protected Shadow shadow;
 
-    public TexturedButton( PVector coordinates, int height, String text, String tooltipText ) {
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ TexturedButton  ░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
+    public TexturedButton( PVector coordinates, int height, 
+                           String text, String tooltipText ) {
         super( coordinates, height, text, tooltipText );
         this.width = int( textWidth( text )) + 30;
 		this.shadow = new Shadow( color( 0, 0, 0, 20 ), this.coordinates, this.width, this.height, 2, this.roundness );
     }
 
-    public TexturedButton( PVector coordinates, int height, String text, String tooltipText, boolean shadowed ) {
+    public TexturedButton( PVector coordinates, int height, 
+                           String text, String tooltipText, boolean shadowed ) {
         super( coordinates, height, text, tooltipText, shadowed );
         this.width = int( textWidth( text )) + 30;
 		this.shadow = new Shadow( color( 0, 0, 0, 20 ), this.coordinates, this.width, this.height, 2, this.roundness );
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ TexturedButton :: draw  ░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     @Override
     public void draw() {
         if ( !this.hidden ) {
-            this.idleGradient = new VerticalGradient( fromIdle, toIdle, height, this.width, this.coordinates, this.roundness );
-            this.pressedGradient = new VerticalGradient( fromPressed, toPressed, height, this.width, this.coordinates, this.roundness );
-            this.tooltip = new TexturedTooltip( new PVector( this.coordinates.x + 5, this.coordinates.y + this.height ), this.tooltip.text );
+            this.idleGradient = 
+                new VerticalGradient( fromIdle, toIdle, height, this.width, 
+                                      this.coordinates, this.roundness );
+            this.pressedGradient = 
+                new VerticalGradient( fromPressed, toPressed, height, this.width, 
+                                      this.coordinates, this.roundness );
+            this.tooltip = new TexturedTooltip( new PVector( this.coordinates.x + 5, 
+                                                             this.coordinates.y + this.height ), 
+                                                             this.tooltip.text );
             colorMode( RGB, 255 );
             if ( this.pressed ) {
-                // Shadow shadow = new Shadow( color( 0, 0, 0, 20 ), new PVector( this.x, this.y ), this.width, this.height, 2, this.roundness );
+                /* Shadow shadow = new Shadow( color( 0, 0, 0, 20 ), 
+                                            new PVector( this.x, this.y ), 
+                                            this.width, this.height, 2, this.roundness ); */
                 this.shadow.draw();
                 noFill();
                 this.pressedGradient.draw();
             } else {
-                // Shadow shadow = new Shadow( color( 0, 0, 0, 20 ), new PVector( this.x, this.y ), this.width, this.height, 2, this.roundness );
+                /* Shadow shadow = new Shadow( color( 0, 0, 0, 20 ), 
+                                            new PVector( this.x, this.y ), 
+                                            this.width, this.height, 2, this.roundness ); */
                 shadow.draw();
                 noFill();
                 this.idleGradient.draw();
@@ -92,6 +112,10 @@ class TexturedButton extends Button {
         }
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Events  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     @Override
     public void mousePressed() {
         if ( isInside( mouseX, mouseY ) ) {
@@ -104,7 +128,11 @@ class TexturedButton extends Button {
             this.pressed = false;
         }
     }
-		
+    
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ TexturedButton :: setCoordinates  ░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
 	@Override
 	public void setCoordinates( PVector coordinates ) {
 	    this.coordinates = coordinates;

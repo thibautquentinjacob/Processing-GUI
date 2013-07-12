@@ -14,20 +14,20 @@
    Boston, MA  02110-1301, USA.
    
    ---
-   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr> */
+   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr>
 
-/* Description
-   ===========
-   
-   TODO
-   ==============
-   - Focus empty placeholder
-   - Hide overflow
-
-   FIXME
-   ==============
-
-*/
+┌───────────────────────────────────────────────────────────────┐
+│░░░░░░░░░░ Description ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│
+├───────────────────────────────────────────────────────────────┤
+│ Textfield GUI element class representation                    │
+│   ...                                                         │
+├─────────────────────────────────────────────────────────────╤─┤
+│ TODO                                                        │░│
+│   Focus empty placeholder                                   │░│
+│   Hide overflow                                             │░│
+│ FIXME                                                       │░│
+│ ...                                                         │░│
+└─────────────────────────────────────────────────────────────┴─┘ */
 
 class TextField extends Control {
 
@@ -37,6 +37,10 @@ class TextField extends Control {
     protected String placeHolderTextCopy;
     protected boolean focused;
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Textfield  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public TextField( PVector coordinates, int width, String placeHolderText ) {
         this.coordinates = coordinates;
         this.width = width;
@@ -50,6 +54,10 @@ class TextField extends Control {
         this.focused = false;
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Textfield :: draw  ░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     @Override
     public void draw() {
         if ( !this.hidden ) {
@@ -76,23 +84,19 @@ class TextField extends Control {
         }
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Textfield :: setInputText  ░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public void setInputText( String text ) {
         this.inputText = text;
         this.height = ( int( textWidth( placeHolderText )) + 10 ) / this.width * 24;
     }
 
-    // @Override
-    // protected boolean isInside( int mouseX, int mouseY ) {
-    //     int distX = mouseX - this.x;
-    //     int distY = mouseY - this.y;
-    //     if ( distX >= 0 && distX <= this.width && distY >= 0 && distY <= this.height ) {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }
-
-    // Events
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Events  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     @Override
     public void mouseClicked() {
         if ( isInside( mouseX, mouseY )) {

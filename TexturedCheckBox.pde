@@ -14,19 +14,19 @@
    Boston, MA  02110-1301, USA.
    
    ---
-   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr> */
+   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr>
 
-/* Description
-   ===========
-   Checkboxes GUI element class
-   
-   TODO
-   ==============
-
-   FIXME
-   ==============
-
- */
+┌───────────────────────────────────────────────────────────────┐
+│░░░░░░░░░░ Description ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│
+├───────────────────────────────────────────────────────────────┤
+│ Textured Checkbox GUI element class representation            │
+│   ...                                                         │
+├─────────────────────────────────────────────────────────────╤─┤
+│ TODO                                                        │░│
+│ ..                                                          │░│
+│ FIXME                                                       │░│
+│ ...                                                         │░│
+└─────────────────────────────────────────────────────────────┴─┘ */
 
 class TexturedCheckBox extends CheckBox {
 
@@ -34,6 +34,10 @@ class TexturedCheckBox extends CheckBox {
     protected color from;
     protected color to;
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ TexturedCheckBox  ░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public TexturedCheckBox( PVector coordinates, int size, String[] texts ) {
         super( coordinates, size, texts );
         this.roundness = 2;
@@ -43,7 +47,8 @@ class TexturedCheckBox extends CheckBox {
                                         this.coordinates, this.roundness );
     }
 
-    public TexturedCheckBox( PVector coordinates, int size, String[] texts, boolean shadowed, boolean[] checked ) {
+    public TexturedCheckBox( PVector coordinates, int size, String[] texts, 
+                             boolean shadowed, boolean[] checked ) {
         super( coordinates, size, texts, shadowed, checked );
         this.roundness = 2;
         this.from = color( 210, 210, 210 );
@@ -52,13 +57,19 @@ class TexturedCheckBox extends CheckBox {
                                         this.coordinates, this.roundness );
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ TexturedCheckBox :: draw  ░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     @Override
     public void draw() {
         if ( !this.hidden ) {
             colorMode( RGB, 255 );
             for ( int i = 0 ; i < texts.length ; i++ ) {
                 String text = this.texts[i];
-                // Shadow shadow = new Shadow( color( 0, 0, 0, 20 ), new PVector( this.x, this.y + ( this.heightOffset + this.height ) * i ), this.width, this.height, 2, this.roundness );
+                /* Shadow shadow = new Shadow( color( 0, 0, 0, 20 ), 
+                                            new PVector( this.x, this.y + ( this.heightOffset + this.height ) * i ), 
+                                            this.width, this.height, 2, this.roundness ); */
                 // shadow.draw();
                 noFill();
                 // Double frame
@@ -72,8 +83,8 @@ class TexturedCheckBox extends CheckBox {
                       this.roundness, this.roundness );
                 // Vertical gradient
                 this.vg = new VerticalGradient( from, to, this.height, this.width, 
-                                                new PVector( this.coordinates.x, this.coordinates.y + ( this.heightOffset + this.height ) * i ), 
-                                                this.roundness );
+                                                new PVector( this.coordinates.x, this.coordinates.y + 
+                                                ( this.heightOffset + this.height ) * i ), this.roundness );
                 this.vg.draw();
                 // Draw checked mark
                 if ( this.checked[i] ) {
@@ -93,14 +104,16 @@ class TexturedCheckBox extends CheckBox {
                 }
                 // Text with carving
                 fill( 255, 255, 255 );
-                text( text, this.coordinates.x + this.width + 10, this.coordinates.y + height / 2 + ( this.heightOffset + this.height ) * i + 6 );
+                text( text, this.coordinates.x + this.width + 10, this.coordinates.y + 
+                      height / 2 + ( this.heightOffset + this.height ) * i + 6 );
                 if ( this.checked[i] ) {
                     fill( 0, 0, 0 );
                 } else {
                     fill( 100, 100, 100 );
                 }
                 textSize( this.textSize );
-                text( text, this.coordinates.x + this.width + 10, this.coordinates.y + height / 2 + ( this.heightOffset + this.height ) * i + 5 );
+                text( text, this.coordinates.x + this.width + 10, this.coordinates.y + 
+                      height / 2 + ( this.heightOffset + this.height ) * i + 5 );
             }
         }
     }

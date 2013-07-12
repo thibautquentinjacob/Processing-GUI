@@ -14,19 +14,19 @@
    Boston, MA  02110-1301, USA.
    
    ---
-   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr> */
+   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr>
 
-/* Description
-   ===========
-   Radio buttons GUI element class
-   
-   TODO
-   ==============
-
-   FIXME
-   ==============
-
-*/
+┌───────────────────────────────────────────────────────────────┐
+│░░░░░░░░░░ Description ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│
+├───────────────────────────────────────────────────────────────┤
+│ Radio button GUI element class representation                 │
+│   ...                                                         │
+├─────────────────────────────────────────────────────────────╤─┤
+│ TODO                                                        │░│
+│ ..                                                          │░│
+│ FIXME                                                       │░│
+│ ...                                                         │░│
+└─────────────────────────────────────────────────────────────┴─┘ */
 
 class RadioButton extends Control {
 
@@ -38,6 +38,10 @@ class RadioButton extends Control {
     protected String[] texts;
     private int pointed = -1;
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ RadioButton  ░░░░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public RadioButton( PVector coordinates, int size, String[] texts ) {
         this.coordinates = coordinates;
         this.width = size;
@@ -62,6 +66,10 @@ class RadioButton extends Control {
         this.type = "Radio Buttons";
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ RadioButton :: draw  ░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     @Override
     public void draw() {
         if ( !this.hidden ) {
@@ -72,14 +80,24 @@ class RadioButton extends Control {
                     fill( 200, 200, 200, 200 );
                     noStroke();
                     ellipse( this.coordinates.x + this.shadowOffset + this.width / 2, 
-                             this.coordinates.y + height / 2 + this.shadowOffset + ( this.heightOffset + this.height ) * i, 
+                             this.coordinates.y + height / 2 + this.shadowOffset + 
+                             ( this.heightOffset + this.height ) * i, 
                              this.width, this.height );
                 }
-                int[] strokeColorChannels = { this.strokeColor.getRed(), this.strokeColor.getGreen(), this.strokeColor.getBlue() };
-                int[] fillColorChannels = { this.fillColor.getRed(), this.fillColor.getGreen(), this.fillColor.getBlue() };
+                int[] strokeColorChannels = { 
+                    this.strokeColor.getRed(), 
+                    this.strokeColor.getGreen(), 
+                    this.strokeColor.getBlue() };
+                int[] fillColorChannels = { 
+                    this.fillColor.getRed(), 
+                    this.fillColor.getGreen(), 
+                    this.fillColor.getBlue() };
                 stroke( strokeColorChannels[0], strokeColorChannels[1], strokeColorChannels[2] );
                 fill( fillColorChannels[0], fillColorChannels[1], fillColorChannels[2] );
-                ellipse( this.coordinates.x + this.width / 2, this.coordinates.y + height / 2 + ( this.heightOffset + this.height ) * i, this.width, this.height );
+                ellipse( this.coordinates.x + this.width / 2, 
+                         this.coordinates.y + height / 2 + 
+                         ( this.heightOffset + this.height ) * i, 
+                         this.width, this.height );
                 if ( this.selected == i ) {
                     fill( 100, 100, 100, 200 );
                     noStroke();
@@ -107,11 +125,19 @@ class RadioButton extends Control {
         }
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ RadioButton :: isInside ░░░░░░░░░░░░░░░░ ║
+    ╟────────────────────────────────────────────╢
+    │ Checks if the cursor is inside the button. │
+    └────────────────────────────────────────────┘ */
     public boolean isInside( int mouseX, int mouseY ) {
         float distX = mouseX - this.coordinates.x;
         float distY = mouseY - this.coordinates.y;
         for ( int i = 0 ; i < this.texts.length ; i++ ) {
-            if ( distX >= 0 && distX <= this.getWidth() && distY >= 0 && distY <= this.height + ( this.heightOffset + this.height ) * i ) {
+            if ( distX >= 0 && distX <= this.getWidth() && 
+                 distY >= 0 && distY <= this.height + 
+                 ( this.heightOffset + this.height ) * i ) {
                 this.pointed = i;
                 return true;
             }
@@ -119,11 +145,19 @@ class RadioButton extends Control {
         return false;
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ RadioButton :: getHeight  ░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     @Override
     public int getHeight() {
         return this.texts.length * ( this.height + this.heightOffset );
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ RadioButton :: getWidth  ░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     @Override
     public int getWidth() {
         float maxTextWidth = 0;
@@ -135,7 +169,10 @@ class RadioButton extends Control {
         return this.width + (int)maxTextWidth + 10;
     }
 
-    // Events
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Events  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     @Override
     public void mouseClicked() {
         if ( isInside( mouseX, mouseY )) {

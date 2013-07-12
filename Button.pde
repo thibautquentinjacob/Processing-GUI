@@ -14,19 +14,19 @@
    Boston, MA  02110-1301, USA.
    
    ---
-   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr> */
-
-/* Description
-   ===========
-   Button GUI element class
+   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr> 
    
-   TODO
-   ==============
-
-   FIXME
-   ==============
-
-*/
+┌───────────────────────────────────────────────────────────────┐
+│░░░░░░░░░░ Description ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│
+├───────────────────────────────────────────────────────────────┤
+│ Button GUI element class representation                       │
+│   ...                                                         │
+├─────────────────────────────────────────────────────────────╤─┤
+│ TODO                                                        │░│
+│ ..                                                          │░│
+│ FIXME                                                       │░│
+│ ...                                                         │░│
+└─────────────────────────────────────────────────────────────┴─┘ */
 
 class Button extends Control {
 
@@ -35,6 +35,10 @@ class Button extends Control {
     protected int pressedOffset = 2;
     protected String text;
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Button  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public Button( PVector coordinates, int height, String text, String tooltipText ) {
         this.coordinates = coordinates;
         this.width = int( textWidth( text )) + 10;
@@ -57,6 +61,10 @@ class Button extends Control {
         this.tooltip = new Tooltip( new PVector( this.coordinates.x + 5, this.coordinates.y + this.height ), tooltipText );
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Button :: draw  ░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     @Override
     public void draw() {
         if ( !this.hidden ) {
@@ -92,6 +100,12 @@ class Button extends Control {
         }
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Button :: isInside ░░░░░░░░░░░░░░░░░░░░░ ║
+    ╟────────────────────────────────────────────╢
+    │ Checks if the cursor is inside the button. │
+    └────────────────────────────────────────────┘ */
     public boolean isInside( int mouseX, int mouseY ) {
         float distX = mouseX - this.coordinates.x;
         float distY = mouseY - this.coordinates.y;
@@ -102,7 +116,10 @@ class Button extends Control {
         }
     }
 
-    // Events
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Events  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     @Override
     public void mouseMoved() {
         if ( isInside( mouseX, mouseY )) {

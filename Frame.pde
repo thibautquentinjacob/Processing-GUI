@@ -14,18 +14,19 @@
    Boston, MA  02110-1301, USA.
    
    ---
-   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr> */
+   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr>
 
-/* Description
-   ===========
-   
-   TODO
-   ==============
-
-   FIXME
-   ==============
-   
-*/
+┌───────────────────────────────────────────────────────────────┐
+│░░░░░░░░░░ Description ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│
+├───────────────────────────────────────────────────────────────┤
+│ Frame class representation                                    │
+│   ...                                                         │
+├─────────────────────────────────────────────────────────────╤─┤
+│ TODO                                                        │░│
+│ ..                                                          │░│
+│ FIXME                                                       │░│
+│ ...                                                         │░│
+└─────────────────────────────────────────────────────────────┴─┘ */
 
 class Frame {
 
@@ -33,6 +34,10 @@ class Frame {
     protected ArrayList<Control> controls;
     protected ArrayList<Dialog> dialogs;
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Frame  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public Frame( int width, int height ) {
         this.width = width;
         this.height = height;
@@ -40,6 +45,10 @@ class Frame {
         this.dialogs = new ArrayList<Dialog>();
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Frame :: draw  ░░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public void draw() {
         colorMode( RGB, 255 );
         background( 229, 229, 229 );
@@ -51,15 +60,30 @@ class Frame {
         }
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Frame :: addControl ░░░░░░░░░░░░░░░░░░░░ ║
+    ╟────────────────────────────────────────────╢
+    │ Add given control to this frame.           │
+    └────────────────────────────────────────────┘ */
     public void addControl( Control control ) {
         this.controls.add( control );
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Frame :: addDialog ░░░░░░░░░░░░░░░░░░░░░ ║
+    ╟────────────────────────────────────────────╢
+    │ Add given dialog to this frame.            │
+    └────────────────────────────────────────────┘ */
     public void addDialog( Dialog dialog ) {
         this.dialogs.add( dialog );
     }
 
-    // Events
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Events  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     void mouseClicked() {
         try {
             for ( Control control : this.controls ) {

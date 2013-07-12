@@ -14,19 +14,19 @@
    Boston, MA  02110-1301, USA.
    
    ---
-   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr> */
+   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr>
 
-/* Description
-   ===========
-   Checkboxes GUI element class
-   
-   TODO
-   ==============
-
-   FIXME
-   ==============
-
- */
+┌───────────────────────────────────────────────────────────────┐
+│░░░░░░░░░░ Description ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│
+├───────────────────────────────────────────────────────────────┤
+│ Checkboxes GUI element class representation                   │
+│   ...                                                         │
+├─────────────────────────────────────────────────────────────╤─┤
+│ TODO                                                        │░│
+│ ..                                                          │░│
+│ FIXME                                                       │░│
+│ ...                                                         │░│
+└─────────────────────────────────────────────────────────────┴─┘ */
 
 class CheckBox extends Control {
 
@@ -37,6 +37,10 @@ class CheckBox extends Control {
     protected String[] texts;
     protected int selected = -1;
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ CheckBox ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public CheckBox( PVector coordinates, int size, String[] texts ) {
         this.coordinates = coordinates;
         this.width = size;
@@ -63,6 +67,10 @@ class CheckBox extends Control {
         this.checkRadius = size / 2;
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ CheckBox :: draw  ░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     @Override
     public void draw() {
         if ( !this.hidden ) {
@@ -72,24 +80,41 @@ class CheckBox extends Control {
                 if ( this.shadowed ) {
                 fill( 200, 200, 200, 200 );
                 noStroke();
-                rect( this.coordinates.x + this.shadowOffset, this.coordinates.y + this.shadowOffset + ( this.heightOffset + this.height ) * i, this.width, this.height, 
-                            this.roundness, this.roundness, this.roundness, this.roundness );
+                rect( this.coordinates.x + this.shadowOffset, 
+                      this.coordinates.y + this.shadowOffset + 
+                      ( this.heightOffset + this.height ) * i, 
+                      this.width, this.height, 
+                      this.roundness, this.roundness, this.roundness, this.roundness );
                 }
-                int[] strokeColorChannels = { this.strokeColor.getRed(), this.strokeColor.getGreen(), this.strokeColor.getBlue() };
-                int[] fillColorChannels = { this.fillColor.getRed(), this.fillColor.getGreen(), this.fillColor.getBlue() };
+                int[] strokeColorChannels = { 
+                    this.strokeColor.getRed(), this.strokeColor.getGreen(), 
+                    this.strokeColor.getBlue() };
+                int[] fillColorChannels = { 
+                    this.fillColor.getRed(), this.fillColor.getGreen(), 
+                    this.fillColor.getBlue() };
                 stroke( strokeColorChannels[0], strokeColorChannels[1], strokeColorChannels[2] );
                 fill( fillColorChannels[0], fillColorChannels[1], fillColorChannels[2] );
-                rect( this.coordinates.x, this.coordinates.y + ( this.heightOffset + this.height ) * i, this.width, this.height, this.roundness, this.roundness, this.roundness, this.roundness );
+                rect( this.coordinates.x, this.coordinates.y + 
+                      ( this.heightOffset + this.height ) * i, 
+                      this.width, this.height, this.roundness, 
+                      this.roundness, this.roundness, this.roundness );
                 if ( this.checked[i] ) {
                     fill( 100, 100, 100, 200 );
                     noStroke();
-                    rect( this.coordinates.x + this.checkRadius / 2 , this.coordinates.y + this.checkRadius / 2 + ( this.heightOffset + this.height ) * i, this.width - this.checkRadius + 1, 
-                                this.height - this.checkRadius + 1, this.roundness, this.roundness, this.roundness, this.roundness );
+                    rect( this.coordinates.x + this.checkRadius / 2 , 
+                          this.coordinates.y + this.checkRadius / 2 + 
+                          ( this.heightOffset + this.height ) * i, 
+                          this.width - this.checkRadius + 1, 
+                          this.height - this.checkRadius + 1, this.roundness, 
+                          this.roundness, this.roundness, this.roundness );
                 }
                 if ( this.hovered ) {
                     fill( 255, 255, 255, 50 );
                     noStroke();
-                    rect( this.coordinates.x, this.coordinates.y + ( this.heightOffset + this.height ) * i, this.width, this.height, this.roundness, this.roundness, this.roundness, this.roundness );
+                    rect( this.coordinates.x, this.coordinates.y + 
+                          ( this.heightOffset + this.height ) * i, 
+                          this.width, this.height, this.roundness, 
+                          this.roundness, this.roundness, this.roundness );
                 }
                 if ( this.checked[i] ) {
                     fill( 0, 0, 0 );
@@ -98,16 +123,26 @@ class CheckBox extends Control {
                 }
             
                 textSize( this.textSize );
-                text( text, this.coordinates.x + this.width + 10, this.coordinates.y + height / 2 + ( this.heightOffset + this.height ) * i + 5 );
+                text( text, this.coordinates.x + this.width + 10, 
+                      this.coordinates.y + height / 2 + 
+                      ( this.heightOffset + this.height ) * i + 5 );
             }
         }
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Slider :: isInside ░░░░░░░░░░░░░░░░░░░░░ ║
+    ╟────────────────────────────────────────────╢
+    │ Checks if the cursor is inside the slider. │
+    └────────────────────────────────────────────┘ */
     public boolean isInside( int mouseX, int mouseY ) {
         float distX = mouseX - this.coordinates.x;
         float distY = mouseY - this.coordinates.y;
         for ( int i = 0 ; i < this.texts.length ; i++ ) {
-            if ( distX >= 0 && distX <= this.getWidth() && distY >= 0 && distY <= this.height + ( this.heightOffset + this.height ) * i ) {
+            if ( distX >= 0 && distX <= this.getWidth() && 
+                 distY >= 0 && distY <= this.height + 
+                 ( this.heightOffset + this.height ) * i ) {
                 this.selected = i;
                 return true;
             }
@@ -115,11 +150,19 @@ class CheckBox extends Control {
         return false;
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ CheckBox :: getHeight  ░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     @Override
     public int getHeight() {
         return this.texts.length * ( this.height + this.heightOffset );
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Checkbox :: getWidth  ░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     @Override
     public int getWidth() {
         float maxTextWidth = 0;
@@ -131,7 +174,10 @@ class CheckBox extends Control {
         return this.width + (int)maxTextWidth + 10;
     }
 
-    // Events
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Events  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     @Override
     public void mouseClicked() {
         if ( isInside( mouseX, mouseY )) {

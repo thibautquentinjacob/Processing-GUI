@@ -14,28 +14,37 @@
    Boston, MA  02110-1301, USA.
    
    ---
-   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr> */
+   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr>
 
-/* Description
-   ===========
-   
-   TODO
-   ==============
-
-   FIXME
-   ==============
-
-*/
+┌───────────────────────────────────────────────────────────────┐
+│░░░░░░░░░░ Description ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│
+├───────────────────────────────────────────────────────────────┤
+│ Textured Textfield GUI element class representation           │
+│   ...                                                         │
+├─────────────────────────────────────────────────────────────╤─┤
+│ TODO                                                        │░│
+│ ..                                                          │░│
+│ FIXME                                                       │░│
+│ ...                                                         │░│
+└─────────────────────────────────────────────────────────────┴─┘ */
 
 class TexturedTextField extends TextField {
 
     protected Shadow shadow;
 	
+	/*
+	╔════════════════════════════════════════════╗
+	║ ░ TexturedTextField  ░░░░░░░░░░░░░░░░░░░░░ ║
+	╚════════════════════════════════════════════╝ */
     public TexturedTextField( PVector coordinates, int width, String placeHolderText ) {
         super( coordinates, width, placeHolderText );
         this.shadow = new Shadow( color( 0, 100, 200, 50 ), this.coordinates, this.width, this.height, 2, this.roundness );
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ TexturedTextField :: draw  ░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     @Override
     public void draw() {
         if ( !this.hidden ) {

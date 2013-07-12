@@ -14,20 +14,20 @@
    Boston, MA  02110-1301, USA.
    
    ---
-   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr> */
+   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr>
 
-/* Description
-   ===========
-   Simple linear gradients from one color to another
-   
-   TODO
-   ==============
-    - Code horizontal gradient
-
-   FIXME
-   ==============
-
-*/
+┌───────────────────────────────────────────────────────────────┐
+│░░░░░░░░░░ Description ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│
+├───────────────────────────────────────────────────────────────┤
+│ Gradient class representation                                 │
+│   Allows to represent vertical and linear gradients between   │
+│   two colors.                                                 │
+├─────────────────────────────────────────────────────────────╤─┤
+│ TODO                                                        │░│
+│   Implement horizontal color gradient                       │░│
+│ FIXME                                                       │░│
+│ ...                                                         │░│
+└─────────────────────────────────────────────────────────────┴─┘ */
 
 abstract class Gradient {
 
@@ -37,8 +37,13 @@ abstract class Gradient {
     protected int height;
     protected int width;
     protected PVector coordinates;
-    protected int topRightCornerRadius, topLeftCornerRadius, bottomRightCornerRadius, bottonLeftCornerRadius;
+    protected int topRightCornerRadius, topLeftCornerRadius, 
+                  bottomRightCornerRadius, bottonLeftCornerRadius;
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Gradient  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public Gradient( color from, color to, int height, int width, PVector coordinates ) {
         this.from = from;
         this.to = to;
@@ -51,7 +56,8 @@ abstract class Gradient {
         this.bottonLeftCornerRadius = 0;
     };
 
-    public Gradient( color from, color to, int height, int width, PVector coordinates, int cornerRadius ) {
+    public Gradient( color from, color to, int height, 
+                     int width, PVector coordinates, int cornerRadius ) {
         this.from = from;
         this.to = to;
         this.height = height;
@@ -63,8 +69,10 @@ abstract class Gradient {
         this.bottonLeftCornerRadius = cornerRadius;
     };
 
-    public Gradient( color from, color to, int height, int width, PVector coordinates, 
-                     int topRightCornerRadius, int topLeftCornerRadius, int bottomRightCornerRadius, int bottonLeftCornerRadius ) {
+    public Gradient( color from, color to, 
+                     int height, int width, PVector coordinates, 
+                     int topRightCornerRadius, int topLeftCornerRadius, 
+                     int bottomRightCornerRadius, int bottonLeftCornerRadius ) {
         this.from = from;
         this.to = to;
         this.height = height;
@@ -76,12 +84,24 @@ abstract class Gradient {
         this.bottonLeftCornerRadius = bottonLeftCornerRadius;
     };
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Gradient :: draw  ░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     private void draw(){};
     
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Gradient :: getCoordinates  ░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public PVector getCoordinates() {
       return this.coordinates;
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Gradient :: setCoordinates  ░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public void setCoordinates( PVector coordinates ) {
       this.coordinates = coordinates;
     }
@@ -93,6 +113,10 @@ class VerticalGradient extends Gradient {
     protected PImage img;
     protected PGraphics pg;
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ VerticalGradient  ░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public VerticalGradient( color from, color to, int height, int width, PVector coordinates ) {
         super( from, to, height, width, coordinates );
         int timeStart = millis();
@@ -109,14 +133,17 @@ class VerticalGradient extends Gradient {
         img.updatePixels();
 
         // If corner are round
-        if ( topRightCornerRadius > 0 || topLeftCornerRadius > 0 || bottomRightCornerRadius > 0 || bottonLeftCornerRadius > 0 ) {
+        if ( topRightCornerRadius > 0 || topLeftCornerRadius > 0 || 
+             bottomRightCornerRadius > 0 || bottonLeftCornerRadius > 0 ) {
             // Create a mask to crop the gradient
             pg.beginDraw();
             pg.background( 0 );
             pg.smooth();
             pg.noStroke();
             pg.fill( 255 );
-            pg.rect( 0, 0, pg.width, pg.height, this.topRightCornerRadius, this.topLeftCornerRadius, this.bottomRightCornerRadius, this.bottonLeftCornerRadius );
+            pg.rect( 0, 0, pg.width, pg.height, this.topRightCornerRadius, 
+                     this.topLeftCornerRadius, this.bottomRightCornerRadius, 
+                     this.bottonLeftCornerRadius );
             pg.endDraw();
             img.mask( pg ); // Apply the mask
         }
@@ -140,14 +167,17 @@ class VerticalGradient extends Gradient {
         img.updatePixels();
 
         // If corner are round
-        if ( topRightCornerRadius > 0 || topLeftCornerRadius > 0 || bottomRightCornerRadius > 0 || bottonLeftCornerRadius > 0 ) {
+        if ( topRightCornerRadius > 0 || topLeftCornerRadius > 0 || 
+             bottomRightCornerRadius > 0 || bottonLeftCornerRadius > 0 ) {
             // Create a mask to crop the gradient
             pg.beginDraw();
             pg.background( 0 );
             pg.smooth();
             pg.noStroke();
             pg.fill( 255 );
-            pg.rect( 0, 0, pg.width, pg.height, this.topRightCornerRadius, this.topLeftCornerRadius, this.bottomRightCornerRadius, this.bottonLeftCornerRadius );
+            pg.rect( 0, 0, pg.width, pg.height, this.topRightCornerRadius, 
+                     this.topLeftCornerRadius, this.bottomRightCornerRadius, 
+                     this.bottonLeftCornerRadius );
             pg.endDraw();
             img.mask( pg ); // Apply the mask
         }
@@ -155,9 +185,13 @@ class VerticalGradient extends Gradient {
         // println( "Gradient Creation: " + ( timeEnd - timeStart ));
     }
 
-    public VerticalGradient( color from, color to, int height, int width, PVector coordinates, 
-                             int topRightCornerRadius, int topLeftCornerRadius, int bottomRightCornerRadius, int bottonLeftCornerRadius ) {
-        super( from, to, height, width, coordinates, topRightCornerRadius, topLeftCornerRadius, bottomRightCornerRadius, bottonLeftCornerRadius );
+    public VerticalGradient( color from, color to, int height, 
+                             int width, PVector coordinates, 
+                             int topRightCornerRadius, int topLeftCornerRadius, 
+                             int bottomRightCornerRadius, int bottonLeftCornerRadius ) {
+        super( from, to, height, width, coordinates, 
+               topRightCornerRadius, topLeftCornerRadius, 
+               bottomRightCornerRadius, bottonLeftCornerRadius );
         img = createImage( this.width, this.height, RGB);
         pg = createGraphics( this.width, this.height, JAVA2D );
         img.loadPixels();
@@ -171,24 +205,28 @@ class VerticalGradient extends Gradient {
         img.updatePixels();
 
         // If corner are round
-        if ( topRightCornerRadius > 0 || topLeftCornerRadius > 0 || bottomRightCornerRadius > 0 || bottonLeftCornerRadius > 0 ) {
+        if ( topRightCornerRadius > 0 || topLeftCornerRadius > 0 || 
+             bottomRightCornerRadius > 0 || bottonLeftCornerRadius > 0 ) {
             // Create a mask to crop the gradient
             pg.beginDraw();
             pg.background( 0 );
             pg.smooth();
             pg.noStroke();
             pg.fill( 255 );
-            pg.rect( 0, 0, pg.width, pg.height, this.topRightCornerRadius, this.topLeftCornerRadius, this.bottomRightCornerRadius, this.bottonLeftCornerRadius );
+            pg.rect( 0, 0, pg.width, pg.height, this.topRightCornerRadius, 
+                     this.topLeftCornerRadius, this.bottomRightCornerRadius, 
+                     this.bottonLeftCornerRadius );
             pg.endDraw();
             img.mask( pg ); // Apply the mask
         }
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ VerticalGradient :: draw  ░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     private void draw() {
-        int timeStart = millis();
         image( img, this.coordinates.x, this.coordinates.y );
-        int timeEnd = millis();
-        // println( "Gradient Drawing: " + timeEnd + " - " + timeStart + " = " + ( timeEnd - timeStart ));
     }
 
 };

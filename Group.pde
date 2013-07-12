@@ -14,19 +14,19 @@
    Boston, MA  02110-1301, USA.
    
    ---
-   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr> */
+   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr>
 
-/* Description
-   ===========
-   Allows to group a set of controls.
-   
-   TODO
-   ==============
-
-   FIXME
-   ==============
-   
-*/
+┌───────────────────────────────────────────────────────────────┐
+│░░░░░░░░░░ Description ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│
+├───────────────────────────────────────────────────────────────┤
+│ Group class representation                                    │
+│   Allows to group a set of controls                           │
+├─────────────────────────────────────────────────────────────╤─┤
+│ TODO                                                        │░│
+│ ..                                                          │░│
+│ FIXME                                                       │░│
+│ ...                                                         │░│
+└─────────────────────────────────────────────────────────────┴─┘ */
 
 class Group {
 
@@ -37,11 +37,10 @@ class Group {
     protected int width, height;
     protected boolean disabled;
     
-    /* 
-    ========================
-     Group :: Group
-    ======================== 
-    */
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Group  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
      public Group( String name, PVector coordinates ) {
         this.name = name.toUpperCase();
         this.controls = new ArrayList<Control>();
@@ -61,11 +60,10 @@ class Group {
         this.disabled = false;
     }
 
-    /* 
-    ========================
-     Group :: draw
-    ======================== 
-    */
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Group :: draw  ░░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public void draw() {
         fill( 100, 100, 100 );
         // stroke( 220, 220, 220 );
@@ -83,13 +81,13 @@ class Group {
         // this.drawOverlay();
     }
 
-    /* 
-    ========================
-     Group :: drawOverlay
-
-     Debug drawing
-    ======================== 
-    */
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Group :: drawOverlay ░░░░░░░░░░░░░░░░░░░ ║
+    ╟────────────────────────────────────────────╢
+    │ Draws a red overlay to show the dimensions │
+    │ of the group.                              │
+    └────────────────────────────────────────────┘ */
     private void drawOverlay() {
         for ( Control control: this.controls ) {
             fill( 255, 0, 0, 100 );
@@ -99,11 +97,10 @@ class Group {
         }
     }
 
-    /* 
-    ========================
-     Group :: addControl
-    ======================== 
-    */
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Group :: addControl  ░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public void addControl( Control control ) {
         float verticalOffset = 0;
         if ( !this.controls.isEmpty()) {
@@ -117,20 +114,18 @@ class Group {
         this.getGroupDimensions();
     }
 
-    /* 
-    ========================
-     Group :: getControls
-    ======================== 
-    */
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Group :: getControls  ░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public ArrayList<Control> getControls() {
         return this.controls;
     }
 
-    /* 
-    ========================
-     Group :: getGroupDimensions
-    ======================== 
-    */
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Group :: getGroupDimensions  ░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     private void getGroupDimensions() {
         int maxWidth = Integer.MIN_VALUE;
         int maxHeight = 0;
@@ -148,41 +143,50 @@ class Group {
         // println( "dimensions are: " + this.width + ", " + this.height );
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Group :: getWidth  ░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public int getWidth() {
         return this.width;
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Group :: getHeight  ░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public int getHeight() {
         return this.height;
     }
 
-    /* 
-    ========================
-     Group :: setpadding
-    ======================== 
-    */    
-    public void setpadding( int padding ) {
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Group :: setPadding  ░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */   
+    public void setPadding( int padding ) {
         this.padding = padding;
     }
 
-    /* 
-    ========================
-     Group :: enable
-    ======================== 
-    */
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Group :: enable  ░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public void enable() {
         this.disabled = false;
     }
 
-    /* 
-    ========================
-     Group :: disable
-    ======================== 
-    */
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Group :: disable  ░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public void disable() {
         this.disabled = false;
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Events  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     void mouseClicked() {
         for ( Control control: controls ) {
             control.mouseClicked();

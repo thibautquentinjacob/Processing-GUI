@@ -14,22 +14,26 @@
    Boston, MA  02110-1301, USA.
    
    ---
-   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr> */
+   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr>
 
-/* Description
-   ===========
-   Example of a slider class with redefined drawing routine
-   
-   TODO
-   ==============
-
-   FIXME
-   ==============
-
-*/
+┌───────────────────────────────────────────────────────────────┐
+│░░░░░░░░░░ Description ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│
+├───────────────────────────────────────────────────────────────┤
+│ Textured Slider GUI element class representation              │
+│   ...                                                         │
+├─────────────────────────────────────────────────────────────╤─┤
+│ TODO                                                        │░│
+│ ..                                                          │░│
+│ FIXME                                                       │░│
+│ ...                                                         │░│
+└─────────────────────────────────────────────────────────────┴─┘ */
 
 class TexturedSlider extends Slider {
     
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ TexturedSlider  ░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public TexturedSlider( PVector coordinates, int min, int max, int size ) {
         super( coordinates, min, max, size );
         this.height = 8;
@@ -42,11 +46,18 @@ class TexturedSlider extends Slider {
         this.roundness = 5;
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ TexturedSlider :: draw  ░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     @Override
     public void draw() {
         if ( !this.hidden ) {
             colorMode( RGB, 255 );
-            int[] strokeColorChannels = { this.strokeColor.getRed(), this.strokeColor.getGreen(), this.strokeColor.getBlue() };
+            int[] strokeColorChannels = { 
+                this.strokeColor.getRed(), 
+                this.strokeColor.getGreen(), 
+                this.strokeColor.getBlue() };
             int[] fillColorChannels = { this.fillColor.getRed(), this.fillColor.getGreen(), this.fillColor.getBlue() };
             noFill();
             stroke( 247, 247, 247 );

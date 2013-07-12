@@ -14,18 +14,19 @@
    Boston, MA  02110-1301, USA.
    
    ---
-   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr> */
+   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr>
 
-/* Description
-   ===========
-   
-   TODO
-   ==============
-
-   FIXME
-   ==============
-   
-*/
+┌───────────────────────────────────────────────────────────────┐
+│░░░░░░░░░░ Description ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│
+├───────────────────────────────────────────────────────────────┤
+│ Color class representation                                    │
+│   ...                                                         │
+├─────────────────────────────────────────────────────────────╤─┤
+│ TODO                                                        │░│
+│ ..                                                          │░│
+│ FIXME                                                       │░│
+│ ...                                                         │░│
+└─────────────────────────────────────────────────────────────┴─┘ */
 
 class Dialog {
 
@@ -36,6 +37,10 @@ class Dialog {
     protected ArrayList<Control> controls;
     protected boolean hidden;
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Dialog  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public Dialog( PVector coordinates, int width, int height, String title, ArrayList<Control> controls ) {
         this.coordinates = coordinates;
         this.width = width;
@@ -54,29 +59,46 @@ class Dialog {
         this.roundness = roundness;
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Dialog :: draw  ░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public void draw() {
         if ( this.hidden ) {
             colorMode( RGB, 255 );
             background( 229, 229, 229 );
             stroke( 0, 0, 0 );
             fill( 255, 255, 255 );
-            rect( this.coordinates.x, this.coordinates.y, this.width, this.height, this.roundness, this.roundness, this.roundness, this.roundness );
+            rect( this.coordinates.x, this.coordinates.y, 
+                  this.width, this.height, this.roundness, 
+                  this.roundness, this.roundness, this.roundness );
             for ( Control control : this.controls ) {
                 control.draw();
             }
         }
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Dialog :: isInside ░░░░░░░░░░░░░░░░░░░░░ ║
+    ╟────────────────────────────────────────────╢
+    │ Checks if the cursor is inside the dialog. │
+    └────────────────────────────────────────────┘ */
     protected boolean isInside( int mouseX, int mouseY ) {
         float distX = mouseX - this.coordinates.x;
         float distY = mouseY - this.coordinates.y;
-        if ( distX >= 0 && distX <= this.width && distY >= 0 && distY <= this.height ) {
+        if ( distX >= 0 && distX <= this.width && 
+             distY >= 0 && distY <= this.height ) {
             return true;
         } else {
             return false;
         }
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Dialog :: hide  ░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public void hide() {
         this.hidden = true;
         for ( Control control : this.controls ) {
@@ -84,6 +106,10 @@ class Dialog {
         }
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Dialog :: show  ░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public void show() {
         this.hidden = false;
         for ( Control control : this.controls ) {
@@ -91,18 +117,31 @@ class Dialog {
         }
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Dialog :: toggle  ░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public void toggle() {
         this.hidden = !this.hidden;
         for ( Control control : this.controls ) {
             control.toggle();
         }
     }
-
+    
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Dialog :: addControl ░░░░░░░░░░░░░░░░░░░ ║
+    ╟────────────────────────────────────────────╢
+    │ Add given control to this group.           │
+    └────────────────────────────────────────────┘ */
     public void addControl( Control control ) {
         this.controls.add( control );
     }
 
-    // Events
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Events  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     void mouseClicked() {
         try {
             for ( Control control : this.controls ) {

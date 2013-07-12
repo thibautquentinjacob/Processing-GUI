@@ -14,18 +14,19 @@
    Boston, MA  02110-1301, USA.
    
    ---
-   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr> */
+   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr>
 
-/* Description
-   ===========
-   
-   TODO
-   ==============
-
-   FIXME
-   ==============
-   
-*/
+┌───────────────────────────────────────────────────────────────┐
+│░░░░░░░░░░ Description ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│
+├───────────────────────────────────────────────────────────────┤
+│ Textured dialog class representation                          │
+│   ...                                                         │
+├─────────────────────────────────────────────────────────────╤─┤
+│ TODO                                                        │░│
+│ ..                                                          │░│
+│ FIXME                                                       │░│
+│ ...                                                         │░│
+└─────────────────────────────────────────────────────────────┴─┘ */
 
 class TexturedDialog extends Dialog {
 
@@ -41,30 +42,49 @@ class TexturedDialog extends Dialog {
     PFont neueBold11 = loadFont("HelveticaNeue-Bold-11.vlw");
     boolean dragging = false;
 
-    public TexturedDialog( PVector coordinates, int width, int height, String title, ArrayList<Control> controls ) {
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ TexturedDialog  ░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
+    public TexturedDialog( PVector coordinates, int width, int height, 
+                           String title, ArrayList<Control> controls ) {
         super( coordinates, width, height, title, controls );
         this.vg = new VerticalGradient( this.from, this.to, this.gradientHeight, width - 1, 
                                         new PVector( coordinates.x + 1, coordinates.y + height - this.gradientHeight ),
                                         0, 0, roundness, roundness );
-        okButton = new TexturedButton( new PVector( this.coordinates.x + this.width - 80, this.coordinates.y + this.height - 32 ), 24, "Proceed", "Let's go!" );
-        cancelButton = new TexturedButton( new PVector( this.coordinates.x + this.width - 80 - okButton.width, this.coordinates.y + this.height - 32 ), 24, "Cancel", "Hummm" );
+        okButton = new TexturedButton( new PVector( this.coordinates.x + this.width - 80, 
+                                                    this.coordinates.y + this.height - 32 ), 
+                                                    24, "Proceed", "Let's go!" );
+        cancelButton = new TexturedButton( new PVector( this.coordinates.x + this.width - 80 - okButton.width, 
+                                                        this.coordinates.y + this.height - 32 ), 
+                                                        24, "Cancel", "Hummm" );
         this.controls.add( okButton );
         this.controls.add( cancelButton );
 		this.shadow = new Shadow( color( 0, 0, 0, 20 ), this.coordinates, this.width, this.height, 2, this.roundness );
     }
 
-    public TexturedDialog( PVector coordinates, int width, int height, String title, ArrayList<Control> controls, int roundness ) {
+    public TexturedDialog( PVector coordinates, int width, int height, 
+                           String title, ArrayList<Control> controls, int roundness ) {
         super( coordinates, width, height, title, controls, roundness );
         this.vg = new VerticalGradient( this.from, this.to, this.gradientHeight, width - 1, 
                                         new PVector( coordinates.x + 1, coordinates.y + height - this.gradientHeight ),
                                         0, 0, roundness, roundness );
-        okButton = new TexturedButton( new PVector( this.coordinates.x + this.width - 80, this.coordinates.y + this.height - 32 ), 24, "Proceed", "Let's go!" );
-        cancelButton = new TexturedButton( new PVector( this.coordinates.x + this.width - 80 - okButton.width, this.coordinates.y + this.height - 32 ), 24, "Cancel", "Hummm" );
+        okButton = new TexturedButton( new PVector( this.coordinates.x + this.width - 80, 
+                                                    this.coordinates.y + this.height - 32 ), 
+                                                    24, "Proceed", "Let's go!" );
+        cancelButton = new TexturedButton( new PVector( this.coordinates.x + this.width - 80 - okButton.width, 
+                                                        this.coordinates.y + this.height - 32 ), 
+                                                        24, "Cancel", "Hummm" );
         this.controls.add( okButton );
         this.controls.add( cancelButton );
-		this.shadow = new Shadow( color( 0, 0, 0, 20 ), this.coordinates, this.width, this.height, 2, this.roundness );
+		this.shadow = new Shadow( color( 0, 0, 0, 20 ), this.coordinates, 
+		                          this.width, this.height, 2, this.roundness );
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ TexturedDialog :: draw  ░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public void draw() {
         if ( !this.hidden ) {
             // Shadow shadow = new Shadow( color( 0, 0, 0, 20 ), this.coordinates, this.width, this.height, 2, this.roundness );
@@ -100,16 +120,23 @@ class TexturedDialog extends Dialog {
         }
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Events  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     @Override
     void mouseDragged() {
         if ( isInside( mouseX, mouseY ) || dragging ) {
             this.dragging = true;
-            PVector newCoordinates = new PVector( this.coordinates.x - pmouseX + mouseX, this.coordinates.y - pmouseY + mouseY );
-            PVector dist = new PVector( this.coordinates.x - newCoordinates.x, this.coordinates.y - newCoordinates.y );
+            PVector newCoordinates = new PVector( this.coordinates.x - pmouseX + mouseX, 
+                                                  this.coordinates.y - pmouseY + mouseY );
+            PVector dist = new PVector( this.coordinates.x - newCoordinates.x, 
+                                        this.coordinates.y - newCoordinates.y );
             this.coordinates.x = newCoordinates.x;
             this.coordinates.y = newCoordinates.y;
             PVector gradientCoordinates = this.vg.getCoordinates();
-            this.vg.setCoordinates( new PVector( gradientCoordinates.x - dist.x, gradientCoordinates.y - dist.y ));
+            this.vg.setCoordinates( new PVector( gradientCoordinates.x - dist.x, 
+                                                 gradientCoordinates.y - dist.y ));
             for ( Control control : this.controls ) {
                 control.coordinates.x -= dist.x;
                 control.coordinates.y -= dist.y;

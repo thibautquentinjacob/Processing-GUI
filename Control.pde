@@ -14,24 +14,22 @@
    Boston, MA  02110-1301, USA.
    
    ---
-   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr> */
+   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr> 
 
-/* Description
-   ===========
-   Super class for all GUI objects
-   
-   TODO
-   ==============
-   - Implement disabled state
-   - Add scale
-   - Add constructors without coordinates for groups
-
-   FIXME
-   ==============
-   - Fix bug when clicking on button
-   - Fix radio buttons and checkboxes selection
-
-*/
+┌───────────────────────────────────────────────────────────────┐
+│░░░░░░░░░░ Description ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│
+├───────────────────────────────────────────────────────────────┤
+│ GUI object super class                                        │
+│   ...                                                         │
+├─────────────────────────────────────────────────────────────╤─┤
+│ TODO                                                        │░│
+│   Implement disabled state                                  │░│
+│   Add scale                                                 │░│
+│   Add constructors without coordinates for groups           │░│
+│ FIXME                                                       │░│
+│   Fix bug when clicking on button in dialog window          │░│
+│   Fix radio buttons and checkboxes selection                │░│
+└─────────────────────────────────────────────────────────────┴─┘ */
 
 abstract class Control {
     
@@ -54,7 +52,18 @@ abstract class Control {
     protected ArrayList<Action> mouseDraggedActions = new ArrayList<Action>();
     protected ArrayList<Action> keyPressedActions = new ArrayList<Action>();
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Control :: draw  ░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public void draw() {}
+    
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Control :: isInside ░░░░░░░░░░░░░░░░░░░░ ║
+    ╟────────────────────────────────────────────╢
+    │ Checks if the cursor is inside the control.│
+    └────────────────────────────────────────────┘ */
     public boolean isInside( int mouseX, int mouseY ) {
         float distX = mouseX - this.coordinates.x;
         float distY = mouseY - this.coordinates.y;
@@ -65,18 +74,34 @@ abstract class Control {
         }
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Control :: hide  ░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public void hide() {
         this.hidden = true;
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Control :: show  ░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public void show() {
         this.hidden = false;
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Control :: toggle  ░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public void toggle() {
         this.hidden = !this.hidden;
     }
     
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Events  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public void mouseClicked() {
         if ( isInside( mouseX, mouseY )) {
             for ( Action action : mouseClickedActions ) {
@@ -120,7 +145,14 @@ abstract class Control {
         }
     }
     
-    public void setAction( String actionType, Action action ) {
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Control :: addAction ░░░░░░░░░░░░░░░░░░░ ║
+    ╟────────────────────────────────────────────╢
+    │ Add an action of the given type to the     │
+    │ control.                                   │
+    └────────────────────────────────────────────┘ */
+    public void addAction( String actionType, Action action ) {
         if ( actionType == "mouseClicked" ) {
             mouseClickedActions.add( action );
         } else if ( actionType == "mouseMoved" ) {
@@ -136,6 +168,12 @@ abstract class Control {
         }
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Control :: removeAction ░░░░░░░░░░░░░░░░ ║
+    ╟────────────────────────────────────────────╢
+    │ Remove target action from the control.     │
+    └────────────────────────────────────────────┘ */
     public void removeAction ( String actionType, Action action ) {
         if ( actionType == "mouseClicked" ) {
             mouseClickedActions.remove( action );
@@ -152,40 +190,76 @@ abstract class Control {
         }
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Control :: setColor  ░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public void setColor( Color fillColor, Color strokeColor ) {
         this.fillColor = fillColor;
         this.strokeColor = strokeColor;
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Control :: getColor  ░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public Color[] getColor() {
         Color[] colors = { this.fillColor, this.strokeColor };
         return colors;
     }
     
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Control :: getCoordinates  ░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public PVector getCoordinates() {
         return this.coordinates;
     }
     
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Control :: setCoordinates  ░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public void setCoordinates( PVector coordinates ) {
         this.coordinates = coordinates;
     }
     
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Control :: setShadowed  ░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public void setShadowed( boolean shadowed ) {
         this.shadowed = shadowed;
     }
     
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Control :: setDisabled  ░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public void setDisabled( boolean disabled ) {
         this.disabled = disabled;
     }
     
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Control :: getWidth  ░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public int getWidth() {
         return this.width;
     }
     
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Control :: getHeight  ░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public int getHeight() {
         return this.height;
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Control :: getType  ░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public String getType() {
         return this.type;
     }

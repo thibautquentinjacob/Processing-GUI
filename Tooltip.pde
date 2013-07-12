@@ -14,18 +14,19 @@
    Boston, MA  02110-1301, USA.
    
    ---
-   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr> */
+   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr>
 
-/* Description
-   ===========
-   
-   TODO
-   ==============
-
-   FIXME
-   ==============
-
-*/
+┌───────────────────────────────────────────────────────────────┐
+│░░░░░░░░░░ Description ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│
+├───────────────────────────────────────────────────────────────┤
+│ Tooltip class representation                                  │
+│   ...                                                         │
+├─────────────────────────────────────────────────────────────╤─┤
+│ TODO                                                        │░│
+│ ..                                                          │░│
+│ FIXME                                                       │░│
+│ ...                                                         │░│
+└─────────────────────────────────────────────────────────────┴─┘ */
 
 class Tooltip {
 
@@ -34,6 +35,10 @@ class Tooltip {
     protected int width, height;
     protected int roundness = 5;
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Tooltip  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public Tooltip( PVector coordinates, String text ) {
         this.coordinates = coordinates;
         this.width = int( textWidth( text )) + 24;
@@ -41,6 +46,10 @@ class Tooltip {
         this.text = text;
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Tooltip :: draw  ░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public void draw() {
         colorMode( RGB, 255 );
         fill( 255, 255, 255 );
@@ -51,6 +60,10 @@ class Tooltip {
         text( this.text, this.coordinates.x + 10, this.coordinates.y + height / 2 + 5 );
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Tooltip :: setInputText  ░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public void setInputText( String text ) {
         this.text = text;
         this.height = ( int( textWidth( this.text )) + 10 ) / this.width * 24;

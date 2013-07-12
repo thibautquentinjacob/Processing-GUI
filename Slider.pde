@@ -14,19 +14,19 @@
    Boston, MA  02110-1301, USA.
    
    ---
-   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr> */
+   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr>
 
-/* Description
-   ===========
-   Slider GUI element class
-   
-   TODO
-   ==============
-
-   FIXME
-   ==============
-
-*/
+┌───────────────────────────────────────────────────────────────┐
+│░░░░░░░░░░ Description ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│
+├───────────────────────────────────────────────────────────────┤
+│ Slider GUI element class representation                       │
+│   ...                                                         │
+├─────────────────────────────────────────────────────────────╤─┤
+│ TODO                                                        │░│
+│ ..                                                          │░│
+│ FIXME                                                       │░│
+│ ...                                                         │░│
+└─────────────────────────────────────────────────────────────┴─┘ */
 
 import java.util.Collections;
 
@@ -40,9 +40,10 @@ class Slider extends Control {
     protected int oldMouseX, oldMouseY;
     protected boolean dragging = false;
 
-/* ===========================
-    Slider :: Slider
- =========================== */
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Slider  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public Slider( PVector coordinates, int min, int max, int size ) {
         this.coordinates = coordinates;
         this.range = max - min;
@@ -90,16 +91,28 @@ class Slider extends Control {
         return false;
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Slider :: getHeight  ░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     @Override
     public int getHeight() {
         return this.height * 3 + 2;
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Slider :: getWidth  ░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     @Override
     public int getWidth() {
         return this.width + ( this.height * 3 + 2 ) / 2;
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Slider :: setMin  ░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public void setMin( int min ) {
         if ( this.min < this.max ) {
             this.min = min;
@@ -116,6 +129,10 @@ class Slider extends Control {
         }
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Slider :: setMax  ░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public void setMax( int max ) {
         if ( this.min < this.max ) {
             this.max = max;
@@ -132,21 +149,30 @@ class Slider extends Control {
         }
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Slider :: getRanges  ░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     public ArrayList<PVector> getRanges() {
         ArrayList<PVector> ranges = new ArrayList<PVector>();
         for ( int i = 0 ; i < this.dragPositions.size() ; i++ ) {
             if ( this.dragPositions.size() == 1 ) {
                 ranges.add( new PVector( this.coordinates.x, this.dragPositions.get( i )));
             } else if ( i % 2 == 0 && ( i + 1 ) < this.dragPositions.size()) {
-                ranges.add( new PVector( this.coordinates.x + this.dragPositions.get( i + 1 ), this.dragPositions.get( i ) - this.dragPositions.get( i + 1 )));
+                ranges.add( new PVector( this.coordinates.x + this.dragPositions.get( i + 1 ), 
+                                         this.dragPositions.get( i ) - this.dragPositions.get( i + 1 )));
             } else if ( i == this.dragPositions.size() - 1 && i % 2 == 0 ) {
-                ranges.add( new PVector( this.coordinates.x + this.min, this.dragPositions.get( i ) - this.min));
+                ranges.add( new PVector( this.coordinates.x + this.min, 
+                                         this.dragPositions.get( i ) - this.min));
             }
         }
         return ranges;
     }
 
-    // Events
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Events  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     @Override
     public void mouseMoved() {
         if ( isInside( mouseX, mouseY ) ) {
@@ -165,9 +191,14 @@ class Slider extends Control {
                  this.dragPositions.get( this.selectedSlider ) >= 0 ) {
             this.dragging = true;
             int value = (int)(( mouseX - oldMouseX ) * range / width );
-            if ( this.dragPositions.get( this.selectedSlider ) + value >= 0 && this.dragPositions.get( this.selectedSlider ) + value <= range ) {
-                // println( "\nmouseX: " + mouseX + " oldMouseX: " + oldMouseX + " Offset: " + ( mouseX - oldMouseX ) + " current value: " + this.dragPositions.get( this.selectedSlider ) + " new value: " + ( this.dragPositions.get( this.selectedSlider ) + value ));
-                this.dragPositions.set( this.selectedSlider, this.dragPositions.get( this.selectedSlider ) + value );
+            if ( this.dragPositions.get( this.selectedSlider ) + value >= 0 && 
+                 this.dragPositions.get( this.selectedSlider ) + value <= range ) {
+                /* println( "\nmouseX: " + mouseX + " oldMouseX: " + oldMouseX + 
+                         " Offset: " + ( mouseX - oldMouseX ) + " current value: " + 
+                         this.dragPositions.get( this.selectedSlider ) + " new value: " +
+                         ( this.dragPositions.get( this.selectedSlider ) + value )); */
+                this.dragPositions.set( this.selectedSlider,
+                                        this.dragPositions.get( this.selectedSlider ) + value );
                 oldMouseX = mouseX;
                 oldMouseY = mouseY;
             }
@@ -180,12 +211,22 @@ class Slider extends Control {
         this.dragging = false;
     }
 
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Slider :: draw  ░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
     @Override
     public void draw() {
         if ( !this.hidden ) {
             colorMode( RGB, 255 );
-            int[] strokeColorChannels = { this.strokeColor.getRed(), this.strokeColor.getGreen(), this.strokeColor.getBlue() };
-            int[] fillColorChannels = { this.fillColor.getRed(), this.fillColor.getGreen(), this.fillColor.getBlue() };
+            int[] strokeColorChannels = { 
+                this.strokeColor.getRed(), 
+                this.strokeColor.getGreen(), 
+                this.strokeColor.getBlue() };
+            int[] fillColorChannels = { 
+                this.fillColor.getRed(), 
+                this.fillColor.getGreen(), 
+                this.fillColor.getBlue() };
             fill( 100, 100, 100 );
             stroke( 0, 0, 0 );
             rect( this.coordinates.x, this.coordinates.y + this.height + 2, this.width, this.height, 
@@ -193,20 +234,31 @@ class Slider extends Control {
             ArrayList<PVector> ranges = getRanges();
             fill( 0, 150, 250 );
             for ( PVector overlay : ranges ) {
-                rect( overlay.x * width / this.range, this.coordinates.y + this.height + 2, overlay.y * width / this.range, this.height, 
+                rect( overlay.x * width / this.range, this.coordinates.y + this.height + 2, 
+                      overlay.y * width / this.range, this.height, 
                       this.roundness, this.roundness, this.roundness, this.roundness );
             }
             for ( int i = 0 ; i < this.dragPositions.size() ; i++ ) {
                 int position = this.dragPositions.get( i );
                 stroke( strokeColorChannels[0], strokeColorChannels[1], strokeColorChannels[2] );
                 fill( fillColorChannels[0], fillColorChannels[1], fillColorChannels[2] );
-                ellipse( this.coordinates.x + position * width / range , this.coordinates.y + this.height * 3 / 2 + 2, this.height * 3 + 2 , this.height * 3 + 2 );
+                ellipse( this.coordinates.x + position * width / range , 
+                         this.coordinates.y + this.height * 3 / 2 + 2, 
+                         this.height * 3 + 2 , this.height * 3 + 2 );
                 fill( 100, 100, 100 );
-                ellipse( this.coordinates.x + position * width / range, this.coordinates.y + this.height * 3 / 2 + 2, this.height, this.height );
+                ellipse( this.coordinates.x + position * width / range, 
+                         this.coordinates.y + this.height * 3 / 2 + 2, 
+                         this.height, this.height );
                 fill( 0 );
-                text( position, this.coordinates.x + position * width / range - ( this.height * 3 + 2 ) / 2, this.coordinates.y + this.height - 10 );
-                text( this.min, this.coordinates.x + this.min * width / range - ( this.height * 3 + 2 ) / 2, this.coordinates.y + this.height - 10 );
-                text( this.max, this.coordinates.x + this.max * width / range - ( this.height * 3 + 2 ) / 2, this.coordinates.y + this.height - 10 );
+                text( position, this.coordinates.x + position * width / 
+                      range - ( this.height * 3 + 2 ) / 2, 
+                      this.coordinates.y + this.height - 10 );
+                text( this.min, this.coordinates.x + this.min * width / 
+                      range - ( this.height * 3 + 2 ) / 2, 
+                      this.coordinates.y + this.height - 10 );
+                text( this.max, this.coordinates.x + this.max * width / 
+                      range - ( this.height * 3 + 2 ) / 2, 
+                      this.coordinates.y + this.height - 10 );
             }
         }
     }
