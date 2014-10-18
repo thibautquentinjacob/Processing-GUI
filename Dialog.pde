@@ -36,6 +36,7 @@ class Dialog {
     protected String title;
     protected ArrayList<Control> controls;
     protected boolean hidden;
+    protected CSSParser cssParser;
 
     /*
     ╔════════════════════════════════════════════╗
@@ -147,8 +148,7 @@ class Dialog {
             for ( Control control : this.controls ) {
                 control.mouseClicked();
             }
-        } catch (Exception e) {
-        }
+        } catch ( Exception e ) {}
     }
 
     void mouseMoved() {

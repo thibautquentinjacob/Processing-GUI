@@ -19,7 +19,7 @@
 ┌───────────────────────────────────────────────────────────────┐
 │░░░░░░░░░░ Description ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│
 ├───────────────────────────────────────────────────────────────┤
-│ Textfield GUI element class representation                    │
+│ TextArea GUI element class representation                     │
 │   ...                                                         │
 ├─────────────────────────────────────────────────────────────╤─┤
 │ TODO                                                        │░│
@@ -28,44 +28,25 @@
 │ ...                                                         │░│
 └─────────────────────────────────────────────────────────────┴─┘ */
 
-class TextField extends Control {
+class TextArea extends TextField {
 
-    protected String  inputText;              // Full textfield text
-    protected String  textShown;              // Text shown in the widget
-    protected String  placeHolderText;        // Default text
-    protected String  placeHolderTextCopy;    // Buffer
-    protected int     viewableCharacterLimit; // Text longer than the size of the widget is hidden
-    protected boolean focused;                // Focused status
-    protected int     cursorPosition;         // Position of the cursor in the field
-    protected PVector selection;              // Selection range
-    protected boolean selected;               // Selected status
+    protected ArrayList<String> lines;
 
     /*
     ╔════════════════════════════════════════════╗
-    ║ ░ Textfield  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ║ ░ TextArea  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ║
     ╚════════════════════════════════════════════╝ */
-    public TextField( PVector coordinates, int width, String placeHolderText ) {
-        this.coordinates = coordinates;
-        this.width = width;
-        this.height = (( int( textWidth( placeHolderText )) + 10 ) / this.width + 1 ) * 24;
-        this.placeHolderText = placeHolderText;
-        this.placeHolderTextCopy = this.placeHolderText;
-        this.textShown = "";
-        this.disabled = false;
-        this.type = "TextField";
-        this.inputText = "";
-        this.focused = false;
-        this.viewableCharacterLimit = ceil(( this.width ) / textWidth( "a" )) + 1;
-        println( "Width: " + this.width + " | Character width: " + textWidth( "a" ) + " | Limit: " + ( this.viewableCharacterLimit ));
-        this.roundness = 2;
-        this.cursorPosition = 0;
-        this.selection = new PVector( 0, 0 );
-        this.selected = false;
+    public TextArea( PVector coordinates, int width, int height, String placeHolderText ) {
+        super( coordinates, width, placeHolderText );
+        this.height = height;
+        this.lines = new ArrayList<String>();
+        this.lines.add( "plopdededwfewfewf" );
+        this.lines.add( "dewfefewfewfw" );
     }
 
     /*
     ╔════════════════════════════════════════════╗
-    ║ ░ Textfield :: draw  ░░░░░░░░░░░░░░░░░░░░░ ║
+    ║ ░ TextArea :: draw  ░░░░░░░░░░░░░░░░░░░░░░ ║
     ╚════════════════════════════════════════════╝ */
     @Override
     public void draw() {
@@ -87,7 +68,11 @@ class TextField extends Control {
                 } else {
                     fill( 0 );
                 }
-                text( this.textShown, this.coordinates.x + 5, this.coordinates.y + height / 2 + 5 );
+                for ( int i = 0 ; i < this.lines.size() ; i++ ) {
+                    String line = this.lines.get( i );
+                    text( line, this.coordinates.x + 5, this.coordinates.y + 10 * i + 5 );
+                }
+                
             // Placeholder text
             } else {
                 fill( 150, 150, 150 );
@@ -116,68 +101,6 @@ class TextField extends Control {
         }
     }
 
-    /*
-    ╔════════════════════════════════════════════╗
-    ║ ░ Textfield :: setInputText  ░░░░░░░░░░░░░ ║
-    ╚════════════════════════════════════════════╝ */
-    public void setInputText( String text ) {
-        this.inputText = text;
-        this.height = ( int( textWidth( placeHolderText )) + 10 ) / this.width * 24;
-    }
-
-    /*
-    ╔════════════════════════════════════════════╗
-    ║ ░ Textfield :: getInputText  ░░░░░░░░░░░░░ ║
-    ╚════════════════════════════════════════════╝ */
-    public String getInputText() {
-        return this.inputText;
-    }
-
-    /*
-    ╔════════════════════════════════════════════╗
-    ║ ░ Textfield :: getText  ░░░░░░░░░░░░░░░░░░ ║
-    ╚════════════════════════════════════════════╝ */
-    public String getText() {
-        return getInputText();
-    }
-
-    /*
-    ╔════════════════════════════════════════════╗
-    ║ ░ Events  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ║
-    ╚════════════════════════════════════════════╝ */
-    @Override
-    public void mouseClicked() {
-        if ( isInside( mouseX, mouseY ) && this.focused ) {
-            // Double-click
-            if ( mouseEvent.getClickCount() == 2 ) {
-                // Select all the text
-                this.selected = true;
-                this.selection = new PVector( 0, this.inputText.length());
-            } else {
-                // Deselect and place cursor at clicked position
-                this.selected = false;
-                this.cursorPosition = (int)(( mouseX - this.coordinates.x + 5 ) / textWidth( "a" )) - 1;
-            }
-        } else if ( isInside( mouseX, mouseY )) {
-            this.focused = true;
-            this.placeHolderText = "";
-        } else {
-            this.focused = false;
-            if ( this.inputText.length() == 0 ) {
-                this.placeHolderText = this.placeHolderTextCopy;
-            }
-        }
-    }
-
-    @Override
-    public void mouseMoved() {
-        if ( isInside( mouseX, mouseY )) {
-            this.hovered = true;
-        } else {
-            this.hovered = false;
-        }
-    }
-
     @Override
     public void keyPressed() {
         if ( this.focused ) {
@@ -196,8 +119,8 @@ class TextField extends Control {
                 }
                 // If input text length > 0, we can remove character
                 if ( this.inputText.length() > this.viewableCharacterLimit && this.inputText.length() - 1 - this.viewableCharacterLimit > 0 ) {
-					this.inputText = this.inputText.substring( 0, this.inputText.length() - 1 );
-					this.textShown = this.inputText.substring( this.inputText.length() - this.viewableCharacterLimit, 
+                    this.inputText = this.inputText.substring( 0, this.inputText.length() - 1 );
+                    this.textShown = this.inputText.substring( this.inputText.length() - this.viewableCharacterLimit, 
                                                                this.inputText.length());
                     // this.cursorPosition = new PVector( this.cursorPosition.x - textWidth( "a" ), this.cursorPosition.y );
                     //this.cursorPosition--;
@@ -226,8 +149,8 @@ class TextField extends Control {
                 if ( this.cursorPosition < this.inputText.length()) {
                     this.cursorPosition++;
                 }
-        	// Enter key : ignored
-            } else if ( keyCode == ENTER || keyCode == SHIFT ) {
+            // Enter key : ignored
+            } else if ( keyCode == SHIFT ) {
             // Any other key
             } else {
                  // If selected, replace selection by character
@@ -251,16 +174,21 @@ class TextField extends Control {
                     this.inputText = firstPart + key + secondPart;
                 }
                 
-                if ( this.inputText.length() - 1 > this.viewableCharacterLimit ) {
-                	this.textShown = this.inputText.substring( this.inputText.length() - 1 - this.viewableCharacterLimit, 
-                                                               this.inputText.length());
-                    this.cursorPosition++;
-                    // this.cursorPosition = new PVector( this.cursorPosition.x + textWidth( key ), this.cursorPosition.y );
-                } else {
-					this.textShown = this.inputText;
-                    this.cursorPosition++;
-            	}
-        	}
-    	}
-	}
+                // if ( this.inputText.length() - 1 > this.viewableCharacterLimit ) {
+                //     this.textShown = this.inputText.substring( this.inputText.length() - 1 - this.viewableCharacterLimit, 
+                //                                                this.inputText.length());
+                //     this.cursorPosition++;
+                //     // this.cursorPosition = new PVector( this.cursorPosition.x + textWidth( key ), this.cursorPosition.y );
+                // } else {
+                    // split inputText into line segments
+                for ( int i = 0 ; i < this.inputText.length() / this.viewableCharacterLimit ; i++ ) {
+                    String line = this.inputText.substring( i, i + this.viewableCharacterLimit );
+                    lines.set( i, line );
+                }
+                this.textShown = this.inputText;
+                this.cursorPosition++;
+                // }
+            }
+        }
+    }
 }

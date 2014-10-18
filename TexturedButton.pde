@@ -36,7 +36,7 @@ class TexturedButton extends Button {
     protected color toIdle = color( 226, 226, 226 );
     protected color fromPressed = color( 231, 231, 231 );
     protected color toPressed = color( 243, 243, 243 );
-	protected Shadow shadow;
+    protected Shadow shadow;
 
     /*
     ╔════════════════════════════════════════════╗
@@ -44,16 +44,9 @@ class TexturedButton extends Button {
     ╚════════════════════════════════════════════╝ */
     public TexturedButton( PVector coordinates, int height, 
                            String text, String tooltipText ) {
-        super( coordinates, height, text, tooltipText );
+        super( coordinates, text, tooltipText );
         this.width = int( textWidth( text )) + 30;
-		this.shadow = new Shadow( color( 0, 0, 0, 20 ), this.coordinates, this.width, this.height, 2, this.roundness );
-    }
-
-    public TexturedButton( PVector coordinates, int height, 
-                           String text, String tooltipText, boolean shadowed ) {
-        super( coordinates, height, text, tooltipText, shadowed );
-        this.width = int( textWidth( text )) + 30;
-		this.shadow = new Shadow( color( 0, 0, 0, 20 ), this.coordinates, this.width, this.height, 2, this.roundness );
+        this.shadow = new Shadow( color( 0, 0, 0, 20 ), this.coordinates, this.width, this.height, 2, this.roundness );
     }
 
     /*
@@ -133,9 +126,9 @@ class TexturedButton extends Button {
     ╔════════════════════════════════════════════╗
     ║ ░ TexturedButton :: setCoordinates  ░░░░░░ ║
     ╚════════════════════════════════════════════╝ */
-	@Override
-	public void setCoordinates( PVector coordinates ) {
-	    this.coordinates = coordinates;
-	}
+    @Override
+    public void setCoordinates( PVector coordinates ) {
+        this.coordinates = coordinates;
+    }
 
 }

@@ -166,7 +166,7 @@ class VerticalGradient extends Gradient {
         }
         img.updatePixels();
 
-        // If corner are round
+        // If corners are round
         if ( topRightCornerRadius > 0 || topLeftCornerRadius > 0 || 
              bottomRightCornerRadius > 0 || bottonLeftCornerRadius > 0 ) {
             // Create a mask to crop the gradient
@@ -204,7 +204,7 @@ class VerticalGradient extends Gradient {
         }
         img.updatePixels();
 
-        // If corner are round
+        // If corners are round
         if ( topRightCornerRadius > 0 || topLeftCornerRadius > 0 || 
              bottomRightCornerRadius > 0 || bottonLeftCornerRadius > 0 ) {
             // Create a mask to crop the gradient

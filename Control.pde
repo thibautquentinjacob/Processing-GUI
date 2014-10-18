@@ -2,19 +2,19 @@
    modify it under the terms of the GNU General Public License
    as published by the Free Software Foundation; either version 2
    of the License, or (at your option) any later version.
-   
+
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
-   
+
    You should have received a copy of the GNU General Public License
    along with this program; if not, write to the Free Software
    Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA  02110-1301, USA.
-   
+
    ---
-   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr> 
+   Copyright (C) 2013, Thibaut Jacob <jacob@lri.fr>
 
 ┌───────────────────────────────────────────────────────────────┐
 │░░░░░░░░░░ Description ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│
@@ -23,41 +23,50 @@
 │   ...                                                         │
 ├─────────────────────────────────────────────────────────────╤─┤
 │ TODO                                                        │░│
-│   Implement disabled state                                  │░│
-│   Add scale                                                 │░│
-│   Add constructors without coordinates for groups           │░│
+│   * Implement disabled state                                │░│
+│   * Add scale                                               │░│
+│   * Add constructors without coordinates for groups         │░│
 │ FIXME                                                       │░│
-│   Fix bug when clicking on button in dialog window          │░│
-│   Fix radio buttons and checkboxes selection                │░│
+│   * Fix bug when clicking on button in dialog window        │░│
+│   * Fix radio buttons and checkboxes selection              │░│
 └─────────────────────────────────────────────────────────────┴─┘ */
 
 abstract class Control {
-    
-    protected Color fillColor = new Color( 200, 200, 200 );
-    protected Color strokeColor = new Color( 100, 100, 100 );
+
+    protected Color fillColor = new Color( 0, 100, 200 );
+    protected Color strokeColor = new Color( 0, 100, 255 );
     protected PVector coordinates;
     protected int width, height;
-    protected boolean shadowed;
     protected boolean hovered;
     protected boolean disabled;
     protected boolean hidden = false;
-    protected int textSize = 11;
-    protected int roundness = 5;
+    protected int textSize = 11; // Default text size
+    protected int roundness = 5; // Default roundness
+    protected int padding;
     protected String type;
-    protected Tooltip tooltip;
+    protected Tooltip tooltip;   // Visual help
     protected ArrayList<Action> mouseClickedActions = new ArrayList<Action>();
     protected ArrayList<Action> mouseMovedActions = new ArrayList<Action>();
     protected ArrayList<Action> mousePressedActions = new ArrayList<Action>();
     protected ArrayList<Action> mouseReleasedActions = new ArrayList<Action>();
     protected ArrayList<Action> mouseDraggedActions = new ArrayList<Action>();
     protected ArrayList<Action> keyPressedActions = new ArrayList<Action>();
+    protected IDCounter idCounter = new IDCounter();
+    protected int controlID;
+    // protected CSSParser cssParser;
+    // CSS related vars
+    // protected int[] backgroundColor = new int[4];
+
+    public Control() {
+        this.controlID = idCounter.increment();
+    }
 
     /*
     ╔════════════════════════════════════════════╗
     ║ ░ Control :: draw  ░░░░░░░░░░░░░░░░░░░░░░░ ║
     ╚════════════════════════════════════════════╝ */
     public void draw() {}
-    
+
     /*
     ╔════════════════════════════════════════════╗
     ║ ░ Control :: isInside ░░░░░░░░░░░░░░░░░░░░ ║
@@ -97,7 +106,7 @@ abstract class Control {
     public void toggle() {
         this.hidden = !this.hidden;
     }
-    
+
     /*
     ╔════════════════════════════════════════════╗
     ║ ░ Events  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ║
@@ -144,7 +153,7 @@ abstract class Control {
             }
         }
     }
-    
+
     /*
     ╔════════════════════════════════════════════╗
     ║ ░ Control :: addAction ░░░░░░░░░░░░░░░░░░░ ║
@@ -207,7 +216,7 @@ abstract class Control {
         Color[] colors = { this.fillColor, this.strokeColor };
         return colors;
     }
-    
+
     /*
     ╔════════════════════════════════════════════╗
     ║ ░ Control :: getCoordinates  ░░░░░░░░░░░░░ ║
@@ -215,7 +224,7 @@ abstract class Control {
     public PVector getCoordinates() {
         return this.coordinates;
     }
-    
+
     /*
     ╔════════════════════════════════════════════╗
     ║ ░ Control :: setCoordinates  ░░░░░░░░░░░░░ ║
@@ -223,15 +232,7 @@ abstract class Control {
     public void setCoordinates( PVector coordinates ) {
         this.coordinates = coordinates;
     }
-    
-    /*
-    ╔════════════════════════════════════════════╗
-    ║ ░ Control :: setShadowed  ░░░░░░░░░░░░░░░░ ║
-    ╚════════════════════════════════════════════╝ */
-    public void setShadowed( boolean shadowed ) {
-        this.shadowed = shadowed;
-    }
-    
+
     /*
     ╔════════════════════════════════════════════╗
     ║ ░ Control :: setDisabled  ░░░░░░░░░░░░░░░░ ║
@@ -239,7 +240,23 @@ abstract class Control {
     public void setDisabled( boolean disabled ) {
         this.disabled = disabled;
     }
-    
+
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Control :: disable  ░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
+    public void disable() {
+        this.setDisabled( true );
+    }
+
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Control :: enable  ░░░░░░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
+    public void enable() {
+        this.setDisabled( false );
+    }
+
     /*
     ╔════════════════════════════════════════════╗
     ║ ░ Control :: getWidth  ░░░░░░░░░░░░░░░░░░░ ║
@@ -247,7 +264,7 @@ abstract class Control {
     public int getWidth() {
         return this.width;
     }
-    
+
     /*
     ╔════════════════════════════════════════════╗
     ║ ░ Control :: getHeight  ░░░░░░░░░░░░░░░░░░ ║
@@ -262,6 +279,15 @@ abstract class Control {
     ╚════════════════════════════════════════════╝ */
     public String getType() {
         return this.type;
+    }
+
+}
+
+static class IDCounter {
+    static int ID = 0;
+
+    public int increment() {
+        return this.ID++;
     }
 
 }

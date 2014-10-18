@@ -25,15 +25,14 @@
 │ TODO                                                        │░│
 │ ..                                                          │░│
 │ FIXME                                                       │░│
-│ ...                                                         │░│
+│   * Fix hovered                                             │░│
 └─────────────────────────────────────────────────────────────┴─┘ */
 
 class CheckBox extends Control {
 
     protected boolean[] checked;
-    protected int checkRadius = 6;
+    protected int checkRadius = 7;
     protected int heightOffset = 5;
-    protected int shadowOffset = 3;
     protected String[] texts;
     protected int selected = -1;
 
@@ -46,25 +45,25 @@ class CheckBox extends Control {
         this.width = size;
         this.height = size;
         this.texts = texts;
-        this.shadowed = false;
         this.disabled = false;
         this.type = "CheckBox";
         for ( int i = 0 ; i < texts.length ; i++ ) {
             checked[i] = false;
         }
         this.checkRadius = size / 2;
+        this.roundness = 2;
     }
 
-    public CheckBox( PVector coordinates, int size, String[] texts, boolean shadowed, boolean[] checked ) {
+    public CheckBox( PVector coordinates, int size, String[] texts, boolean[] checked ) {
         this.coordinates = coordinates;
         this.width = size;
         this.height = size;
         this.texts = texts;
-        this.shadowed = shadowed;
         this.checked = checked;
         this.disabled = false;
         this.type = "CheckBox";
         this.checkRadius = size / 2;
+        this.roundness = 2;
     }
 
     /*
@@ -77,51 +76,44 @@ class CheckBox extends Control {
             colorMode( RGB, 255 );
             for ( int i = 0 ; i < texts.length ; i++ ) {
                 String text = this.texts[i];
-                if ( this.shadowed ) {
-                fill( 200, 200, 200, 200 );
-                noStroke();
-                rect( this.coordinates.x + this.shadowOffset, 
-                      this.coordinates.y + this.shadowOffset + 
-                      ( this.heightOffset + this.height ) * i, 
-                      this.width, this.height, 
-                      this.roundness, this.roundness, this.roundness, this.roundness );
-                }
-                int[] strokeColorChannels = { 
-                    this.strokeColor.getRed(), this.strokeColor.getGreen(), 
-                    this.strokeColor.getBlue() };
-                int[] fillColorChannels = { 
-                    this.fillColor.getRed(), this.fillColor.getGreen(), 
-                    this.fillColor.getBlue() };
-                stroke( strokeColorChannels[0], strokeColorChannels[1], strokeColorChannels[2] );
-                fill( fillColorChannels[0], fillColorChannels[1], fillColorChannels[2] );
+
+                fill( 0 );
+                stroke( 0 );
                 rect( this.coordinates.x, this.coordinates.y + 
                       ( this.heightOffset + this.height ) * i, 
-                      this.width, this.height, this.roundness, 
-                      this.roundness, this.roundness, this.roundness );
+                      this.width + 1, this.height + 1, this.roundness + 2, 
+                      this.roundness + 2, this.roundness + 2, this.roundness + 2 );
                 if ( this.checked[i] ) {
-                    fill( 100, 100, 100, 200 );
-                    noStroke();
-                    rect( this.coordinates.x + this.checkRadius / 2 , 
-                          this.coordinates.y + this.checkRadius / 2 + 
-                          ( this.heightOffset + this.height ) * i, 
-                          this.width - this.checkRadius + 1, 
-                          this.height - this.checkRadius + 1, this.roundness, 
-                          this.roundness, this.roundness, this.roundness );
+                    fill( 100, 100, 100 );
+                    stroke( 130 );
+                    // rect( this.coordinates.x + this.checkRadius / 2 , 
+                    //       this.coordinates.y + this.checkRadius / 2 + 
+                    //       ( this.heightOffset + this.height ) * i, 
+                    //       this.width - this.checkRadius + 2, 
+                    //       this.height - this.checkRadius + 2, this.roundness, 
+                    //       this.roundness, this.roundness, this.roundness );
+                    VerticalGradient tick = new VerticalGradient( color( 200 ), color( 100 ), this.height - this.checkRadius + 3, 
+                                                              this.width - this.checkRadius + 3, 
+                                                              new PVector( this.coordinates.x + this.checkRadius / 2 , 
+                                                                           this.coordinates.y + this.checkRadius / 2 +  ( this.heightOffset + this.height ) * i ), 
+                                                              this.roundness );
+                    tick.draw();
                 }
-                if ( this.hovered ) {
-                    fill( 255, 255, 255, 50 );
-                    noStroke();
-                    rect( this.coordinates.x, this.coordinates.y + 
-                          ( this.heightOffset + this.height ) * i, 
-                          this.width, this.height, this.roundness, 
-                          this.roundness, this.roundness, this.roundness );
-                }
+                // if ( this.hovered ) {
+                //     fill( 255, 255, 255 );
+                //     noStroke();
+                //     rect( this.coordinates.x, this.coordinates.y + 
+                //           ( this.heightOffset + this.height ) * i, 
+                //           this.width, this.height, this.roundness, 
+                //           this.roundness, this.roundness, this.roundness );
+                // }
+
+                // Text drawing
                 if ( this.checked[i] ) {
-                    fill( 0, 0, 0 );
+                    fill( 255 );
                 } else {
                     fill( 100, 100, 100 );
                 }
-            
                 textSize( this.textSize );
                 text( text, this.coordinates.x + this.width + 10, 
                       this.coordinates.y + height / 2 + 

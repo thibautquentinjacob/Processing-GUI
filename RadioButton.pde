@@ -25,7 +25,7 @@
 │ TODO                                                        │░│
 │ ..                                                          │░│
 │ FIXME                                                       │░│
-│ ...                                                         │░│
+│   * Fix hovered                                             │░│
 └─────────────────────────────────────────────────────────────┴─┘ */
 
 class RadioButton extends Control {
@@ -33,7 +33,6 @@ class RadioButton extends Control {
     protected int selected;
     protected String selectedValue;
     protected int checkRadius = 6;
-    protected int shadowOffset = 3;
     protected int heightOffset = 5;
     protected String[] texts;
     private int pointed = -1;
@@ -49,19 +48,17 @@ class RadioButton extends Control {
         this.texts = texts;
         this.selected = 0;
         this.selectedValue = this.texts[this.selected];
-        this.shadowed = false;
         this.disabled = false;
         this.type = "Radio Buttons";
     }
 
-    public RadioButton( PVector coordinates, int size, String[] texts, boolean shadowed, int selected ) {
+    public RadioButton( PVector coordinates, int size, String[] texts, int selected ) {
         this.coordinates = coordinates;
         this.width = size;
         this.height = size;
         this.texts = texts;
         this.selected = selected;
         this.selectedValue = this.texts[this.selected];
-        this.shadowed = shadowed;
         this.disabled = false;
         this.type = "Radio Buttons";
     }
@@ -76,46 +73,34 @@ class RadioButton extends Control {
             colorMode( RGB, 255 );
             for ( int i = 0 ; i < this.texts.length ; i++ ) {
                 String text = this.texts[i];
-                if ( this.shadowed ) {
-                    fill( 200, 200, 200, 200 );
-                    noStroke();
-                    ellipse( this.coordinates.x + this.shadowOffset + this.width / 2, 
-                             this.coordinates.y + height / 2 + this.shadowOffset + 
-                             ( this.heightOffset + this.height ) * i, 
-                             this.width, this.height );
-                }
-                int[] strokeColorChannels = { 
-                    this.strokeColor.getRed(), 
-                    this.strokeColor.getGreen(), 
-                    this.strokeColor.getBlue() };
-                int[] fillColorChannels = { 
-                    this.fillColor.getRed(), 
-                    this.fillColor.getGreen(), 
-                    this.fillColor.getBlue() };
-                stroke( strokeColorChannels[0], strokeColorChannels[1], strokeColorChannels[2] );
-                fill( fillColorChannels[0], fillColorChannels[1], fillColorChannels[2] );
+                
+                fill( 0 );
+                stroke( 0 );
                 ellipse( this.coordinates.x + this.width / 2, 
                          this.coordinates.y + height / 2 + 
                          ( this.heightOffset + this.height ) * i, 
                          this.width, this.height );
                 if ( this.selected == i ) {
-                    fill( 100, 100, 100, 200 );
-                    noStroke();
-                    ellipse( this.coordinates.x + 0.5 + this.width / 2, 
-                             this.coordinates.y + height / 2 + 0.5 + ( this.heightOffset + this.height ) * i, 
-                             this.width - this.checkRadius, this.height - this.checkRadius );
+                    fill( 200 );
+                    stroke( 130 );
+                    VerticalGradient tick = new VerticalGradient( color( 200 ), color( 100 ), this.height - this.checkRadius + 1, 
+                                                              this.width - this.checkRadius + 1, 
+                                                              new PVector( this.coordinates.x - 4 + this.width / 2, 
+                                                                           this.coordinates.y - 4 + height / 2 + ( this.heightOffset + this.height ) * i ), 
+                                                              this.roundness );
+                    tick.draw();
                 }
                 if ( this.hovered ) {
-                    fill( 255, 255, 255, 50 );
+                    // fill( 255, 255, 255, 50 );
                     noStroke();
                     ellipse( this.coordinates.x + this.width / 2, 
                              this.coordinates.y + height / 2 + ( this.heightOffset + this.height ) * i, 
                              this.width, this.height );
                 }
                 if ( this.selected == i ) {
-                    fill( 0, 0, 0 );
+                    fill( 255 );
                 } else {
-                    fill( 100, 100, 100 );
+                    fill( 100 );
                 }
 
                 textSize( this.textSize );

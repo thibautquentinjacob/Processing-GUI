@@ -33,7 +33,8 @@ class Shadow {
     protected color col;
     protected PVector coordinates;
     protected int width, height;
-    protected int roundness;
+    protected int topRightCornerRadius, topLeftCornerRadius, 
+                  bottomRightCornerRadius, bottonLeftCornerRadius;
     protected int blurFactor;
     PGraphics pg;
 
@@ -48,14 +49,18 @@ class Shadow {
         this.width = width;
         this.height = height;
         this.blurFactor = blurFactor;
-        this.roundness = 0;
+        this.topRightCornerRadius = 0;
+        this.topLeftCornerRadius = 0; 
+        this.bottomRightCornerRadius = 0;
+        this.bottonLeftCornerRadius = 0;
         pg = createGraphics( this.width * this.blurFactor, this.height * this.blurFactor );
         pg.beginDraw();
         pg.fill( this.col );
         pg.noStroke();
         pg.rect( 2 * this.blurFactor, 2 * this.blurFactor, 
                  this.width + 2 * this.blurFactor, this.height + 2 * this.blurFactor, 
-                 this.roundness, this.roundness, this.roundness, this.roundness );
+                 this.topRightCornerRadius, this.topLeftCornerRadius, 
+                 this.bottomRightCornerRadius, this.bottonLeftCornerRadius );
         pg.filter( BLUR, this.blurFactor );
         pg.endDraw();
         int timeEnd = millis();
@@ -69,7 +74,10 @@ class Shadow {
         this.width = width;
         this.height = height;
         this.blurFactor = blurFactor;
-        this.roundness = roundness;
+        this.topRightCornerRadius = roundness;
+        this.topLeftCornerRadius = roundness; 
+        this.bottomRightCornerRadius = roundness;
+        this.bottonLeftCornerRadius = roundness;
         pg = createGraphics( this.width * this.blurFactor, 
                              this.height * this.blurFactor );
         pg.beginDraw();
@@ -77,7 +85,36 @@ class Shadow {
         pg.noStroke();
         pg.rect( 2 * this.blurFactor, 2 * this.blurFactor, 
                  this.width + 2 * this.blurFactor, this.height + 2 * this.blurFactor, 
-                 this.roundness, this.roundness, this.roundness, this.roundness );
+                 this.topRightCornerRadius, this.topLeftCornerRadius, 
+                 this.bottomRightCornerRadius, this.bottonLeftCornerRadius );
+        pg.filter( BLUR, this.blurFactor );
+        pg.endDraw();
+        int timeEnd = millis();
+        // println( "Shadow Creation: " + ( timeEnd - timeStart ));
+    };
+
+    public Shadow( color col, PVector coordinates, int width, int height, int blurFactor, 
+                   int topRightCornerRadius, int topLeftCornerRadius, 
+                   int bottomRightCornerRadius, int bottonLeftCornerRadius ) {
+        int timeStart = millis();
+        this.col = col;
+        this.coordinates = coordinates;
+        this.width = width;
+        this.height = height;
+        this.blurFactor = blurFactor;
+        this.topRightCornerRadius = topRightCornerRadius;
+        this.topLeftCornerRadius = topLeftCornerRadius; 
+        this.bottomRightCornerRadius = bottomRightCornerRadius;
+        this.bottonLeftCornerRadius = bottonLeftCornerRadius;
+        pg = createGraphics( this.width * this.blurFactor, 
+                             this.height * this.blurFactor );
+        pg.beginDraw();
+        pg.fill( this.col );
+        pg.noStroke();
+        pg.rect( 2 * this.blurFactor, 2 * this.blurFactor, 
+                 this.width + 2 * this.blurFactor, this.height + 2 * this.blurFactor, 
+                 this.topRightCornerRadius, this.topLeftCornerRadius, 
+                 this.bottomRightCornerRadius, this.bottonLeftCornerRadius );
         pg.filter( BLUR, this.blurFactor );
         pg.endDraw();
         int timeEnd = millis();

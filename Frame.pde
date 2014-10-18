@@ -33,16 +33,18 @@ class Frame {
     protected int width, height;
     protected ArrayList<Control> controls;
     protected ArrayList<Dialog> dialogs;
+    protected String title;
 
     /*
     ╔════════════════════════════════════════════╗
     ║ ░ Frame  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ║
     ╚════════════════════════════════════════════╝ */
-    public Frame( int width, int height ) {
+    public Frame( int width, int height, String title ) {
         this.width = width;
         this.height = height;
         this.controls = new ArrayList<Control>();
         this.dialogs = new ArrayList<Dialog>();
+        this.title = title;
     }
 
     /*
@@ -51,13 +53,43 @@ class Frame {
     ╚════════════════════════════════════════════╝ */
     public void draw() {
         colorMode( RGB, 255 );
-        background( 229, 229, 229 );
+        background( 30 );
         for ( Control control : this.controls ) {
             control.draw();
         }
         for ( Dialog dialog : this.dialogs ) {
             dialog.draw();
         }
+        // Draw title bar
+        VerticalGradient titleBar = new VerticalGradient( color( 40 ), color( 0 ), 24, this.width, 
+                                                          new PVector( 0, 0 ), 5, 5, 0, 0 );
+        titleBar.draw();
+        stroke( 255, 255, 255, 20 );
+        line( 0, 23, this.width, 23 );
+        stroke( 0 );
+        line( 0, 24, this.width, 24 );
+        // title name
+        fill( 255 );
+        text( this.title, ( this.width - textWidth( this.title )) / 2, 16 );
+        // buttons
+        fill( 255 );
+        // ellipse( 12, 12, 10, 10 );
+        // ellipse( 30, 12, 10, 10 );
+        // ellipse( 48, 12, 10, 10 );
+        VerticalGradient closeButton = new VerticalGradient( color( 100, 100, 100 ), color( 50, 50, 50 ), 10, 10, 
+                                                          new PVector( 7, 7 ), 15, 15, 15, 15 );
+        VerticalGradient hideButton = new VerticalGradient( color( 100, 100, 100 ), color( 50, 50, 50 ), 10, 10, 
+                                                          new PVector( 27, 7 ), 15, 15, 15, 15 );
+        VerticalGradient zoomButton = new VerticalGradient( color( 100, 100, 100 ), color( 50, 50, 50 ), 10, 10, 
+                                                          new PVector( 47, 7 ), 15, 15, 15, 15 );
+        closeButton.draw();
+        hideButton.draw();
+        zoomButton.draw();
+        // frame border
+        noFill();
+        stroke( 0 );
+        rect( 0, 0, this.width - 1, this.height - 1 );
+
     }
 
     /*
@@ -72,12 +104,51 @@ class Frame {
 
     /*
     ╔════════════════════════════════════════════╗
+    ║ ░ Frame :: getControl ░░░░░░░░░░░░░░░░░░░░ ║
+    ╟────────────────────────────────────────────╢
+    │ Returns control with input ID.             │
+    └────────────────────────────────────────────┘ */
+    public Control getControl( int ID ) {
+        for ( int i = 0 ; i < this.controls.size() ; i++ ) {
+            Control control = this.controls.get( i );
+            if ( control.controlID == ID ) {
+                return control;
+            }
+        }
+        throw new IllegalArgumentException( "ID Not found: " + ID );
+    }
+
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Frame :: printControls ░░░░░░░░░░░░░░░░░ ║
+    ╟────────────────────────────────────────────╢
+    │ Print each controls.                       │
+    └────────────────────────────────────────────┘ */
+    public void printControls() {
+        for ( int i = 0 ; i < this.controls.size() ; i++ ) {
+            Control control = this.controls.get( i );
+            println( control.controlID );
+        }
+    }
+
+    /*
+    ╔════════════════════════════════════════════╗
     ║ ░ Frame :: addDialog ░░░░░░░░░░░░░░░░░░░░░ ║
     ╟────────────────────────────────────────────╢
     │ Add given dialog to this frame.            │
     └────────────────────────────────────────────┘ */
     public void addDialog( Dialog dialog ) {
         this.dialogs.add( dialog );
+    }
+
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Frame :: setTitle ░░░░░░░░░░░░░░░░░░░░░░ ║
+    ╟────────────────────────────────────────────╢
+    │ Set the title of the frame.                │
+    └────────────────────────────────────────────┘ */
+    public void setTitle( String title ) {
+        this.title = title;
     }
 
     /*
@@ -124,6 +195,7 @@ class Frame {
     }
 
     void mouseDragged() {
+        // frame.setLocation( pmouseX, pmouseY );
         for ( Control control : this.controls ) {
             control.mouseDragged();
         }

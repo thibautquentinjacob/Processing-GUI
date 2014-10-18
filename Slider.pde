@@ -50,8 +50,8 @@ class Slider extends Control {
         this.resolution = this.range / size;
         this.width = size;
         this.height = 5;
-        this.min = 0;
-        this.max = 100;
+        this.min = min;
+        this.max = max;
         this.disabled = false;
         this.dragPositions = new ArrayList<Integer>();
         this.dragPositions.add( this.range );
@@ -89,6 +89,14 @@ class Slider extends Control {
         }
         this.selectedSlider = -1;
         return false;
+    }
+
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ Slider :: isBeingDragged  ░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
+    public boolean isBeingDragged() {
+        return this.dragging;
     }
 
     /*
@@ -171,6 +179,14 @@ class Slider extends Control {
 
     /*
     ╔════════════════════════════════════════════╗
+    ║ ░ Slider :: getDragPositions  ░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
+    public ArrayList<Integer> getDragPositions() {
+        return this.dragPositions;
+    }
+
+    /*
+    ╔════════════════════════════════════════════╗
     ║ ░ Events  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ║
     ╚════════════════════════════════════════════╝ */
     @Override
@@ -219,46 +235,48 @@ class Slider extends Control {
     public void draw() {
         if ( !this.hidden ) {
             colorMode( RGB, 255 );
-            int[] strokeColorChannels = { 
-                this.strokeColor.getRed(), 
-                this.strokeColor.getGreen(), 
-                this.strokeColor.getBlue() };
-            int[] fillColorChannels = { 
-                this.fillColor.getRed(), 
-                this.fillColor.getGreen(), 
-                this.fillColor.getBlue() };
-            fill( 100, 100, 100 );
-            stroke( 0, 0, 0 );
-            rect( this.coordinates.x, this.coordinates.y + this.height + 2, this.width, this.height, 
-                  this.roundness, this.roundness, this.roundness, this.roundness );
+            VerticalGradient background = new VerticalGradient( color( 10 ), color( 40 ), this.height + 3, 
+                                                                this.width, 
+                                                                new PVector( this.coordinates.x, 
+                                                                             this.coordinates.y + this.height + 2 ), 
+                                                                this.roundness );
+            background.draw();
             ArrayList<PVector> ranges = getRanges();
             fill( 0, 150, 250 );
             for ( PVector overlay : ranges ) {
-                rect( overlay.x * width / this.range, this.coordinates.y + this.height + 2, 
-                      overlay.y * width / this.range, this.height, 
-                      this.roundness, this.roundness, this.roundness, this.roundness );
+                VerticalGradient range = new VerticalGradient( color( 100 ), color( 50 ), this.height, 
+                                                               (int)(overlay.y * width / this.range), 
+                                                               new PVector( overlay.x * width / this.range, 
+                                                                            this.coordinates.y + this.height + 2 ), 
+                                                               this.roundness );
+                range.draw();
             }
             for ( int i = 0 ; i < this.dragPositions.size() ; i++ ) {
                 int position = this.dragPositions.get( i );
-                stroke( strokeColorChannels[0], strokeColorChannels[1], strokeColorChannels[2] );
-                fill( fillColorChannels[0], fillColorChannels[1], fillColorChannels[2] );
-                ellipse( this.coordinates.x + position * width / range , 
-                         this.coordinates.y + this.height * 3 / 2 + 2, 
-                         this.height * 3 + 2 , this.height * 3 + 2 );
-                fill( 100, 100, 100 );
-                ellipse( this.coordinates.x + position * width / range, 
-                         this.coordinates.y + this.height * 3 / 2 + 2, 
-                         this.height, this.height );
-                fill( 0 );
+                fill( 200 );
+                noStroke();
+                triangle( this.coordinates.x + position * width / range + 2, this.coordinates.y + this.height * 3 / 2 - 5,
+                          this.coordinates.x + position * width / range + 7, this.coordinates.y + this.height * 3 / 2 + 2,
+                          this.coordinates.x + position * width / range - 3, this.coordinates.y + this.height * 3 / 2 + 2 );
+                VerticalGradient handle = new VerticalGradient( color( 200 ), color( 100 ), 9 , 10, 
+                                                                new PVector( this.coordinates.x + position * width / range - 3, this.coordinates.y + this.height * 3 / 2 + 2 ), 
+                                                                0 );
+                handle.draw();
+                // Slider text value
+                fill( 255 );
+                // Show current value
                 text( position, this.coordinates.x + position * width / 
-                      range - ( this.height * 3 + 2 ) / 2, 
+                      range - ( this.height * 3 + 2 ) / 2 + 2, 
                       this.coordinates.y + this.height - 10 );
+                fill( 150 );
+                // Show min value
                 text( this.min, this.coordinates.x + this.min * width / 
                       range - ( this.height * 3 + 2 ) / 2, 
-                      this.coordinates.y + this.height - 10 );
+                      this.coordinates.y + this.height + 25 );
+                // Show max value
                 text( this.max, this.coordinates.x + this.max * width / 
                       range - ( this.height * 3 + 2 ) / 2, 
-                      this.coordinates.y + this.height - 10 );
+                      this.coordinates.y + this.height + 25 );
             }
         }
     }

@@ -19,53 +19,86 @@
 ┌───────────────────────────────────────────────────────────────┐
 │░░░░░░░░░░ Description ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│
 ├───────────────────────────────────────────────────────────────┤
-│ Label GUI element class representation                        │
+│ ProgressBar GUI element class representation                  │
 │   ...                                                         │
 ├─────────────────────────────────────────────────────────────╤─┤
 │ TODO                                                        │░│
-│ ..                                                          │░│
+│   * Implement undefined state                               │░│
 │ FIXME                                                       │░│
 │ ...                                                         │░│
 └─────────────────────────────────────────────────────────────┴─┘ */
 
-class Label extends Control {
+class ProgressBar extends Control {
 
-    private String text;
+    // private String text;
+    private boolean undefined; // *** NOT IMPLEMENTED ***
+    private float progress;
+    private float completeness;
+    private VerticalGradient background;
 
     /*
     ╔════════════════════════════════════════════╗
-    ║ ░ Label  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ║ ░ ProgressBar  ░░░░░░░░░░░░░░░░░░░░░░░░░░░ ║
     ╚════════════════════════════════════════════╝ */
-    public Label( PVector coordinates, int height, String text ) {
+    public ProgressBar( PVector coordinates, int width, int height, float progress, float completeness ) {
         this.coordinates = coordinates;
-        this.width = int( textWidth( text )) + 10;
+        this.width = width;
         this.height = height;
-        this.text = text;
+        // this.text = text;
         this.disabled = false;
-        this.type = "Label";
+        this.type = "ProgressBar";
+        this.undefined = false;
+        this.roundness = 2;
+        this.progress = progress;
+        this.completeness = completeness;
+        this.background = new VerticalGradient( color( 0 ), color( 40 ), this.height + 1, this.width, 
+                                                new PVector( this.coordinates.x, this.coordinates.y ), 
+                                                this.roundness );
+
     }
 
     /*
     ╔════════════════════════════════════════════╗
-    ║ ░ Label :: draw  ░░░░░░░░░░░░░░░░░░░░░░░░░ ║
+    ║ ░ ProgressBar :: draw  ░░░░░░░░░░░░░░░░░░░ ║
     ╚════════════════════════════════════════════╝ */
     @Override
     public void draw() {
         if ( !this.hidden ) {
             colorMode( RGB, 255 );
-            fill( 255 );
-            textSize( this.textSize );
-            text( this.text, this.coordinates.x, this.coordinates.y + height / 2 + 5 );
+            this.background.draw();
+            this.progress = this.progress > this.completeness ? this.completeness : this.progress;
+            this.progress = this.progress <= 1 ? 1 : this.progress;
+            VerticalGradient bar = new VerticalGradient( color( 200 ), color( 100 ), this.height - 6 + 1, 
+                                                              int(( this.progress / this.completeness ) * ( this.width - 6 )), 
+                                                              new PVector( this.coordinates.x + 3, this.coordinates.y + 3 ), 
+                                                              this.roundness );
+            bar.draw();
         }
     }
 
     /*
     ╔════════════════════════════════════════════╗
-    ║ ░ Label :: setText  ░░░░░░░░░░░░░░░░░░░░░░ ║
+    ║ ░ ProgressBar :: setProgress  ░░░░░░░░░░░░ ║
     ╚════════════════════════════════════════════╝ */
-    public void setText( String text ) {
-        this.text = text;
-        this.width = int( textWidth( text )) + 10;
+    public void setProgress( float progress ) {
+        this.progress = progress;
+    }
+
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ ProgressBar :: setText  ░░░░░░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
+    // public void setText( String text ) {
+    //     this.text = text;
+    // }
+
+    // *** NOT IMPLEMENTED ***
+    /*
+    ╔════════════════════════════════════════════╗
+    ║ ░ ProgressBar :: setUndefined  ░░░░░░░░░░░ ║
+    ╚════════════════════════════════════════════╝ */
+    public void setUndefined( boolean undefined ) {
+        this.undefined = undefined;
     }
 
 }

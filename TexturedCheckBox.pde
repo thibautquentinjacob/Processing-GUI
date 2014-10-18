@@ -47,9 +47,8 @@ class TexturedCheckBox extends CheckBox {
                                         this.coordinates, this.roundness );
     }
 
-    public TexturedCheckBox( PVector coordinates, int size, String[] texts, 
-                             boolean shadowed, boolean[] checked ) {
-        super( coordinates, size, texts, shadowed, checked );
+    public TexturedCheckBox( PVector coordinates, int size, String[] texts, boolean[] checked ) {
+        super( coordinates, size, texts, checked );
         this.roundness = 2;
         this.from = color( 210, 210, 210 );
         this.to = color( 223, 223, 223 );

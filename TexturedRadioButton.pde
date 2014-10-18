@@ -47,8 +47,8 @@ class TexturedRadioButton extends RadioButton {
         this.checkRadius = 0;
     }
 
-    public TexturedRadioButton( PVector coordinates, int size, String[] texts, boolean shadowed, int selected ) {
-        super( coordinates, size, texts, shadowed, selected );
+    public TexturedRadioButton( PVector coordinates, int size, String[] texts, int selected ) {
+        super( coordinates, size, texts, selected );
         this.from = color( 112, 112, 112 );
         this.to = color( 76, 76, 76 );
         this.vg = new VerticalGradient( from, to, this.height, this.width, 
